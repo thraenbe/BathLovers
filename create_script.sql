@@ -1,28 +1,29 @@
+drop table registred_class,rooms,subjects,student;
 CREATE TABLE rooms (
-  id int NOT NULL PRIMARY KEY ,
-  name varchar(10) NOT NULL,
-  name_en varchar(30) NOT NULL
+  id SERIAL PRIMARY KEY ,
+  name varchar(30) 
 ) ;
 
 CREATE TABLE subjects (
-  id int NOT NULL PRIMARY KEY ,
-  name varchar(30) NOT NULL,
-  name_en varchar(30) NOT NULL,
-  teacher varchar(30) NOT NULL,
-  information_plan varchar(250) NOT NULL,
-  time time NOT NULL
+  id SERIAL PRIMARY KEY ,
+  name varchar(30) ,
+  name_en varchar(30) ,
+  teacher varchar(30) ,
+  information_plan varchar(250) ,
+  time_start varchar(30) ,
+  time_end varchar(30) 
 ) ;
 CREATE TABLE student (
-  id int NOT NULL PRIMARY KEY ,
-  user_name varchar NOT NULL,
-  password varchar NOT NULL,
-  specialization varchar(30) NOT NULL,
-  year int NOT NULL
+  id SERIAL PRIMARY KEY ,
+  user_name varchar  unique ,
+  password varchar ,
+  specialization varchar(30) ,
+  year int 
 ) ;
 CREATE TABLE registred_class (
-  user_name int NOT NULL,
-  Subject int NOT NULL,
-  Rooms int NOT NULL,
+  user_name int ,
+  Subject int ,
+  Rooms int ,
     FOREIGN KEY  (user_name) references student(id),
     FOREIGN KEY  (Subject) references subjects(id),
     FOREIGN KEY  (Rooms) references rooms(id)
