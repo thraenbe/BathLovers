@@ -1,7 +1,8 @@
 <?php
+session_start();
 $state ="";
-$username = "AliceJohnson";
-$connection = pg_connect("host=localhost dbname=candle user=postgres password=postgres");
+$username = $_SESSION['user'];
+$connection = pg_connect("host=localhost dbname=candle user=postgres password=abc-123");
 if (!$connection) {
     exit;
 } else {        
@@ -43,7 +44,7 @@ if (!$connection) {
     <?php 
     if (isset($_POST['changePasswordBtn'])){
         if (isset($_POST['oldpassword']) && isset($_POST['newpassword'])){        
-            $connection = pg_connect("host=localhost dbname=candle user=postgres password=postgres");
+            $connection = pg_connect("host=localhost dbname=candle user=postgres password=abc-123");
             if (!$connection) {
                 exit;
             } else {        
