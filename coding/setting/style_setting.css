@@ -62,7 +62,11 @@ body {
 	box-sizing: border-box;		
 	margin-bottom: 10px;	
 }
-
+#logoutbtn{
+	width: 200px;
+	background-color: black;
+	border: 1px solid gray;
+}
 label {
 	display:block;
 	color: grey;
