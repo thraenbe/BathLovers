@@ -3,7 +3,7 @@
             <a class="btn btn-light navbar-brand" href="#">
                 <img src="../icons/icons/tabbar/calendar.png" alt="Logo" class="d-inline-block align-text-top">
             </a>        
-            <a class="btn btn-light navbar-brand" href="#">
+            <a class="btn btn-light navbar-brand" href="../search/search.php">
                 <img src="../icons/icons/tabbar/search.png" alt="Logo" class="d-inline-block align-text-top">
             </a>          
             <a class="btn btn-light navbar-brand" href="../setting/settings.php" id = "settingLink">
