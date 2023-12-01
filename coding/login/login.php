@@ -24,11 +24,13 @@ elseif (isset($_POST['logout'])) {
 if(isset($_SESSION['user'])) {
 ?>
 <p>Welcome <strong><?php echo $_SESSION['user'] ?></strong>.</p>
+<p>  Go to <a href="../setting/settings.php"> Settings </a> 
 <form method="post"> 
   <p> 
     <input name="logout" type="submit" id="odhlas" value="Logout"> 
   </p> 
 </form>
+
 <?php
 } else {
 ?>

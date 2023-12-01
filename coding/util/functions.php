@@ -12,7 +12,6 @@ function check_login_credintials($dbconn, $username, $password){
         return false;
     }
     if (pg_num_rows($result) == 0) {
-    
         return false;
     }
     $row = pg_fetch_assoc($result);
