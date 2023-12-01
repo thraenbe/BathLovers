@@ -28,3 +28,11 @@ CREATE TABLE registred_class (
     FOREIGN KEY  (Subject) references subjects(id),
     FOREIGN KEY  (Rooms) references rooms(id)
 );
+CREATE TABLE other_events (
+    user_name int,
+    time_start varchar(30) ,
+    time_end varchar(30),
+    category varchar(30),
+    details varchar(30),
+    FOREIGN KEY (user_name) references student(id)
+);
