@@ -6,7 +6,7 @@ include('../util/db.php');
 <html>
 <head>
 <meta charset="utf-8">
-<title>UWT elektro</title>
+<title>Settings</title>
 <meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no"> 
 <link  rel="stylesheet" href="/style_setting.css">
 </head>
@@ -45,7 +45,7 @@ include('../util/db.php');
 <?php 
 }
 else {
-    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </pP";
+    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
     
 }
 

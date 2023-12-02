@@ -19,6 +19,7 @@ function check_login_credintials($dbconn, $username, $password){
     return $row;
 }
 
+
 function search_subjects($dbconn,$findtext){
     $sql = "SELECT * FROM subjects WHERE lower(name_en) LIKE lower('%$findtext%') OR lower(teacher) LIKE lower('%$findtext%')";
     $result = pg_query($dbconn, $sql);
@@ -77,6 +78,40 @@ function add_course ($dbconn,$subject_id,$user_name) {
         if (!$result){
             echo "Unsucessfull adding";
         }
-    }                         
+    }
 }
+function insert_other_event($dbconn, $user_name, $event_name, 
+    $time_start, $time_end, $tag,  $description) {
+    if(!$dbconn) {
+        echo "<p> Coulud not connect to database". preg_last_error()."</p>";
+        exit;
+    }
+    
+    $event_name = pg_escape_string($event_name);
+    $time_start = pg_escape_string($time_start);
+    $time_end = pg_escape_string($time_end);
+    $tag = pg_escape_string($tag);
+    $description = pg_escape_string($description);
+    $sql = "INSERT INTO other_events (user_name, event_name, time_start, time_end, category, details)
+    VALUES ('$user_name', '$event_name', '$time_start', '$time_end', '$tag', '$description')";
+     $result = pg_query($dbconn, $sql);
+     if(!$result) {
+        echo "<p> Error ". preg_last_error()."</p>";
+        exit;
+    }
+    echo "<p> Succesfully added  event to schedule </p>";
+}
+function get_user_id($dbconn,$user_name) {
+    $sql = "SELECT id FROM student where user_name = '$user_name'";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else { 
+        $row = pg_fetch_array($result);
+        return $row["id"];  
+    }
+}                        
+
 ?>
