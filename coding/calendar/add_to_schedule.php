@@ -11,8 +11,7 @@ if (isset($_SESSION['user'])) {
 ?>
 <form method="post">
     <label for="eventName"> Event name</label>
-    <input name="eventName"type="text" size="30" maxlength="30" id=eventName
-    value="<?php if(isset($_POST['eventName'])) echo $_POST['eventName']; ?>"><br>
+    <input name="eventName"type="text" size="30" maxlength="30" id=eventName><br>
     <label for="date">Date</label>
     <input type="date" id="date" name="date"> <br>
     <label for="start">Start time:</label>
@@ -38,26 +37,25 @@ if (isset($_SESSION['user'])) {
 </form>
 <?php
     if(isset($_POST['add'])) {
-        if(isset($_POST['eventName']) 
-        && isset( $_POST['date']) 
-        && isset( $_POST['start'])
-        && isset( $_POST['end']) 
-        && isset( $_POST['tag']) 
-       
-        && isset( $_POST['description'])){
-            $user_id = get_user_id($dbconn, $_SESSION['user']);
-            $time_start = $_POST['date'] .' '.  $_POST['start'];
-            $time_end = $_POST['date'] . ' ' . $_POST['end'];
-            insert_other_event(
-                $dbconn, $user_id, $_POST['eventName'], 
-                $time_start, $time_end, 
-                $_POST['tag'], $_POST['description'] );
-
-
-        }
-        else {
-            echo "<p> Please fill out all fields </p> ";
-        }
+        if(isset($_POST['eventName'])) $event_name = validate_input($_POST['eventName']); else $event_name ='';
+        if(isset($_POST['date'])) $date = validate_input($_POST['date']); else $date = '';
+        if(isset($_POST['start'])) $start_time = validate_input($date . $_POST['start']); else $start_time = '';
+        if(isset($_POST['end'])) $end_time = validate_input($date . $_POST['end']); else $end_time ='';
+        if(isset($_POST['tag'])) $tag = validate_input($_POST['tag']); else $tag = '';
+        if(isset($_POST['description'])) $description = validate_input($_POST['description']); else $description = '';
+        $errors = array();
+        if(empty($event_name)) $errors['eventName'] = "Empty name";
+        if(empty($date)) $errors["date"] =" Empty date";
+        if(empty($start_time) || empty($end_time)) $errors["time"] = "Empty time";
+        if(empty($tag)) $errors["tag"] = "Empty tag";
+        if(empty($description)) $errors["description"] ="Empyty desc";
+    }
+    if(isset($_POST["add"]) && empty($errors)) {
+        $user_id = get_user_id($dbconn, $_SESSION['user']);
+        insert_other_event($dbconn, $user_id, $event_name, $start_time, $end_time, $tag, $description);
+    }
+    else {
+        echo "<p> Please fill out all fields </p>";
     }
 }
 else {

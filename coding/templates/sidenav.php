@@ -39,14 +39,13 @@
         <a href="#">Week</a>
         <a href="../calendar/add_to_schedule.php" >Add Activity</a>
         <a href="#"> Room plan </a>
-        <strong>  Show classes </strong>
+        <strong>  Show events </strong>
         <form method="post">
             <input type="checkbox" id="lectures" name="lectures" value="Lectures">
-            <label for="lectures"> Lecturs</label><br>
-            <input type="checkbox" id="labs" name="labs" value="Labs">
-            <label for="labs"> Labs </label><br>
-            <input type="checkbox" id="courses" name="courses" value="Courses">
-            <label for="vehicle3"> Courses </label><br><br>
+            <label for="school"> Classes</label><br>
+            <input type="checkbox" id="other" name="other" value="Other">
+            <label for="other"> Other events </label><br>
+            
         </form>
         
 </div>

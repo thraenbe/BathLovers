@@ -97,6 +97,9 @@ function get_user_id($dbconn,$user_name) {
         $row = pg_fetch_array($result);
         return $row["id"];  
     }
+}
+function validate_input($input) {
+    return trim(strip_tags($input));
 }                        
 
 ?>
