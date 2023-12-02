@@ -51,25 +51,15 @@ function course_added($dbconn,$subject_id){
         return $condition;
     }
 }
-function add_course ($dbconn,$subject_id,$user_name) {                       
-    $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)
-    SELECT
-        s.id AS user_id,
-        $subject_id AS subject_id,
-        r.id AS room_id
-    FROM
-        student s
-    JOIN
-        rooms r ON r.id NOT IN (
-        SELECT r.id
-        FROM registred_class
-        WHERE subject_id = $subject_id
-        )
-    WHERE
-        s.user_name = '$user_name'
-    ORDER BY
-        random();
-    SELECT * FROM registred_class;";
+function add_course ($dbconn,$subject_id,$user_name) {                
+    $user_id = get_user_id($dbconn,$user_name);
+    $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)    
+    VALUES ($user_id,$subject_id,(
+        SELECT id from rooms
+    where id not in (SELECT rooms from registred_class)
+    ORDER BY random()
+    LIMIT 1
+        ));";
     $result = pg_query($dbconn, $sql);
     if (!$result){
         echo "Unsucessfull adding";
