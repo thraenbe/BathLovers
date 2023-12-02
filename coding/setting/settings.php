@@ -1,16 +1,12 @@
 <?php
-session_start(); 
-include('../util/db.php'); 
+session_start();
+include('../templates/header.php');
+include('../util/db.php');
+include('../util/functions.php');
+get_header('Login');
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Settings</title>
-<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no"> 
-<link  rel="stylesheet" href="/style_setting.css">
-</head>
-<body>
+<!-- <link  rel="stylesheet" href="/style_setting.css"> -->
+<section>
     <?php
     $state ="";
     if (isset($_SESSION['user'])){        
@@ -77,9 +73,5 @@ if (isset($_POST['changePasswordBtn'])){
 }
 
 ?>
-</body>
-
-<footer>
-    <?php include('../templates/footer.php'); ?>    
-</footer>
-</html>
+</section>
+<?php include('../templates/footer.php'); ?>    

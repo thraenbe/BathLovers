@@ -33,7 +33,7 @@ function search_subjects($dbconn,$findtext){
         return $search_results;
     }    
 }
-function course_added($dbconn,$subject_id){    
+function course_added($dbconn,$subject_id){  
     $sql = "SELECT CASE WHEN EXISTS (
         SELECT 1
         FROM registred_class
@@ -51,33 +51,28 @@ function course_added($dbconn,$subject_id){
         return $condition;
     }
 }
-function add_course ($dbconn,$subject_id,$user_name) {          
-    $place = course_added($subject_id);
-    if ($place){}
-    else {            
-        echo "som tu";
-        $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)
-        SELECT
-          s.id AS user_id,
-          $subject_id AS subject_id,
-          r.id AS room_id
-        FROM
-          student s
-        JOIN
-          rooms r ON r.id NOT IN (
-            SELECT r.id
-            FROM registred_class
-            WHERE subject_id = $subject_id
-          )
-        WHERE
-          s.user_name = '$user_name'
-        ORDER BY
-          random();
-        SELECT * FROM registred_class;";
-        $result = pg_query($dbconn, $sql);
-        if (!$result){
-            echo "Unsucessfull adding";
-        }
+function add_course ($dbconn,$subject_id,$user_name) {                       
+    $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)
+    SELECT
+        s.id AS user_id,
+        $subject_id AS subject_id,
+        r.id AS room_id
+    FROM
+        student s
+    JOIN
+        rooms r ON r.id NOT IN (
+        SELECT r.id
+        FROM registred_class
+        WHERE subject_id = $subject_id
+        )
+    WHERE
+        s.user_name = '$user_name'
+    ORDER BY
+        random();
+    SELECT * FROM registred_class;";
+    $result = pg_query($dbconn, $sql);
+    if (!$result){
+        echo "Unsucessfull adding";
     }
 }
 function insert_other_event($dbconn, $user_name, $event_name, 
