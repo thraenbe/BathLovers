@@ -1,0 +1,10 @@
+<?php
+session_start();
+include('../templates/header.php');
+include('../util/db.php');
+include('../util/functions.php');
+get_header('Login');
+?>
+<?php
+include('../templates/footer.php');
+?>
