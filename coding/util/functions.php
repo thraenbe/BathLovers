@@ -18,4 +18,65 @@ function check_login_credintials($dbconn, $username, $password){
     pg_free_result($result);
     return $row;
 }
+
+function search_subjects($dbconn,$findtext){
+    $sql = "SELECT * FROM subjects WHERE lower(name_en) LIKE lower('%$findtext%') OR lower(teacher) LIKE lower('%$findtext%')";
+    $result = pg_query($dbconn, $sql);
+    $search_results = [];
+    if (!$result) {
+        return [];
+    } else {        
+        while ($row = pg_fetch_assoc($result)) {
+            $search_results[] = $row;
+        }
+        return $search_results;
+    }    
+}
+function course_added($dbconn,$subject_id){    
+    $sql = "SELECT CASE WHEN EXISTS (
+        SELECT 1
+        FROM registred_class
+        WHERE subject_id = $subject_id
+    )
+    THEN CAST(1 AS BIT)
+    ELSE CAST(0 AS BIT)
+    END AS is_object_registered";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        return false;
+    } else {        
+        $row = pg_fetch_assoc($result);
+        $condition = (bool) $row['is_object_registered'];
+        return $condition;
+    }
+}
+function add_course ($dbconn,$subject_id,$user_name) {          
+    $place = course_added($subject_id);
+    if ($place){}
+    else {            
+        echo "som tu";
+        $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)
+        SELECT
+          s.id AS user_id,
+          $subject_id AS subject_id,
+          r.id AS room_id
+        FROM
+          student s
+        JOIN
+          rooms r ON r.id NOT IN (
+            SELECT r.id
+            FROM registred_class
+            WHERE subject_id = $subject_id
+          )
+        WHERE
+          s.user_name = '$user_name'
+        ORDER BY
+          random();
+        SELECT * FROM registred_class;";
+        $result = pg_query($dbconn, $sql);
+        if (!$result){
+            echo "Unsucessfull adding";
+        }
+    }                         
+}
 ?>

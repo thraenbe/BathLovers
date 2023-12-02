@@ -1,4 +1,4 @@
-drop table registred_class,rooms,subjects,student;
+drop table registred_class,rooms,subjects,student,other_events;
 CREATE TABLE rooms (
   id SERIAL PRIMARY KEY ,
   name varchar(30) 
@@ -22,10 +22,10 @@ CREATE TABLE student (
 ) ;
 CREATE TABLE registred_class (
   user_name int ,
-  Subject int ,
+  Subject_id int ,
   Rooms int ,
     FOREIGN KEY  (user_name) references student(id),
-    FOREIGN KEY  (Subject) references subjects(id),
+    FOREIGN KEY  (Subject_id) references subjects(id),
     FOREIGN KEY  (Rooms) references rooms(id)
 );
 CREATE TABLE other_events (
