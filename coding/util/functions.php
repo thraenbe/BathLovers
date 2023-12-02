@@ -33,11 +33,11 @@ function search_subjects($dbconn,$findtext){
         return $search_results;
     }    
 }
-function course_added($dbconn,$subject_id){  
+function course_added($dbconn,$subject_id,$user_id){  
     $sql = "SELECT CASE WHEN EXISTS (
         SELECT 1
         FROM registred_class
-        WHERE subject_id = $subject_id
+        WHERE subject_id = $subject_id AND user_name = $user_id
     )
     THEN CAST(1 AS BIT)
     ELSE CAST(0 AS BIT)
@@ -51,8 +51,7 @@ function course_added($dbconn,$subject_id){
         return $condition;
     }
 }
-function add_course ($dbconn,$subject_id,$user_name) {                
-    $user_id = get_user_id($dbconn,$user_name);
+function add_course ($dbconn,$subject_id,$user_id) {                    
     $sql = "INSERT INTO registred_class (user_name, subject_id, rooms)    
     VALUES ($user_id,$subject_id,(
         SELECT id from rooms
@@ -101,5 +100,39 @@ function get_user_id($dbconn,$user_name) {
 function validate_input($input) {
     return trim(strip_tags($input));
 }                        
-
+function get_registred_classes($dbconn,$user_id){    
+    $sql = "SELECT * FROM registred_class rc join subjects s on rc.subject_id = s.id WHERE rc.user_name = '$user_id';";
+    $result = pg_query($dbconn, $sql);
+    $search_results = [];
+    if (!$result) {
+        return [];
+    } else {        
+        while ($row = pg_fetch_assoc($result)) {
+            $search_results[] = $row;
+        }
+        return $search_results;
+    }
+}
+function get_nonschool_events($dbconn,$user_id){    
+    $sql = "SELECT * FROM other_events WHERE user_name = $user_id;";
+    $result = pg_query($dbconn, $sql);
+    $search_results = [];
+    if (!$result) {
+        return [];
+    } else {        
+        while ($row = pg_fetch_assoc($result)) {
+            $search_results[] = $row;
+        }
+        return $search_results;
+    }
+}
+function delete_course($dbconn,$subject_id,$user_id){
+    $sql = "DELETE FROM registred_class WHERE subject_id = $subject_id AND user_name = $user_id";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } 
+}
 ?>

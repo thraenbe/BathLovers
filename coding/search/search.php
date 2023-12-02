@@ -12,6 +12,7 @@ get_header('Search');
     $state = "";
     if (isset($_SESSION['user'])) {
         $username = $_SESSION['user'];
+        $user_id = get_user_id($dbconn,$username);
     ?>
         <form id="searchForm" method="post">
             <input id="course" name="course" class="input" placeholder="Search...">
@@ -28,7 +29,9 @@ get_header('Search');
                         <div class="start"><?php echo $row['time_start'] ?></div>
                         <div class="end"><?php echo $row['time_end'] ?></div>
                         <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
-                        <?php $someCondition = course_added($dbconn,$row['id']);?>
+                        <?php                         
+                        $someCondition = course_added($dbconn,$row['id'],$user_id);
+                        ?>
                         <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="Add" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div>
             <?php                                        
@@ -37,7 +40,7 @@ get_header('Search');
             for ($i=0;$i<30;$i++){
                 $buttonName = 'class' . $i;                        
                 if (isset($_POST[$buttonName])) {
-                    add_course($dbconn, $i, $username);
+                    add_course($dbconn, $i, $user_id);
                     $rows = search_subjects($dbconn,$_SESSION['searchtext']);
                     foreach ($rows as $row) {
                     ?>
@@ -46,7 +49,7 @@ get_header('Search');
                         <div class="start"><?php echo $row['time_start'] ?></div>
                         <div class="end"><?php echo $row['time_end'] ?></div>
                         <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
-                        <?php $someCondition = course_added($dbconn,$row['id']);?>
+                        <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
                         <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="Add" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div>
                     <?php
