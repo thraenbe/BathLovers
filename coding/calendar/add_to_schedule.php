@@ -39,8 +39,8 @@ if (isset($_SESSION['user'])) {
     if(isset($_POST['add'])) {
         if(isset($_POST['eventName'])) $event_name = validate_input($_POST['eventName']); else $event_name ='';
         if(isset($_POST['date'])) $date = validate_input($_POST['date']); else $date = '';
-        if(isset($_POST['start'])) $start_time = validate_input($date . $_POST['start']); else $start_time = '';
-        if(isset($_POST['end'])) $end_time = validate_input($date . $_POST['end']); else $end_time ='';
+        if(isset($_POST['start'])) $start_time = validate_input($date . " " .$_POST['start']); else $start_time = '';
+        if(isset($_POST['end'])) $end_time = validate_input($date . " ".$_POST['end']); else $end_time ='';
         if(isset($_POST['tag'])) $tag = validate_input($_POST['tag']); else $tag = '';
         if(isset($_POST['description'])) $description = validate_input($_POST['description']); else $description = '';
         $errors = array();
