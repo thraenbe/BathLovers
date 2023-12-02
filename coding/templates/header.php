@@ -8,6 +8,7 @@ function get_header($title) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
 </head>
 <body>
     <header>
@@ -15,7 +16,7 @@ function get_header($title) {
 	</header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="btn btn-light navbar-brand" href="#">
+            <a class="btn btn-light navbar-brand" onclick="openNav()">
                 <img src="../icons\icons\navbar\languege.png" alt="Logo" class="d-inline-block align-text-top">
             </a>          
             <a class="btn btn-light navbar-brand" href="../calendar/add_to_schedule.php">
@@ -23,7 +24,8 @@ function get_header($title) {
             </a>          
         </div>
     </nav>
-<?php         
+<?php 
+include('sidenav.php');         
 }
 ?>
 
