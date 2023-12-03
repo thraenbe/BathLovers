@@ -38,7 +38,7 @@
         <a href="#">Day</a>
         <a href="#">Week</a>
         <a href="../calendar/add_to_schedule.php" >Add Activity</a>
-        <a href="#"> Room plan </a>
+        <a href="../images/roomplan.jpg"> Room plan </a>
         <strong>  Show events </strong>
         <form method="post">
             <input type="checkbox" id="lectures" name="lectures" value="Lectures">
