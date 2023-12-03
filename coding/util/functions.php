@@ -133,6 +133,8 @@ function delete_course($dbconn,$subject_id,$user_id){
         echo "
         ". preg_last_error()."";
         exit;
-    } 
+    } else {
+        pg_free_result($result);
+    }
 }
 ?>

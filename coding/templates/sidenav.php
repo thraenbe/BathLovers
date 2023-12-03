@@ -47,9 +47,11 @@
             <label for="other"> Other events </label><br>
             
         </form>
-        
+        <form action="../login/login.php" method="post">
+            <input name="logout" type="submit" id="odhlas" value="Logout" class="logoutbtn">                
+        </form>
 </div>
-    <script>
+<script>
 function openNav() {
   document.getElementById("mySidenav").style.width = "250px";
 }
