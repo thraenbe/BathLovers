@@ -1,3 +1,10 @@
+<head><style>
+.add-btn{
+    background-color: #00BFFF;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+</style></head>
 <section>
 <!-- <img src="../images/ComeniusUniversity.png" alt="University"> -->
 <?php
@@ -20,11 +27,10 @@ if (isset($_SESSION['user'])) {
             $date_start = explode(" ",$class['time_start']);
             $date_end = explode(" ",$class['time_end']);
             ?>
-        <tr>
+        <tr>        
             <td><div class="day"> <?php echo $date_start[0]?></div></td>
             <td>
-                <a type="button" class="btn btn-info btn-lg btn-block w-100" href= <?php echo $class['information_plan'] ?> >
-
+                <a type="button" class="btn btn-info btn-lg btn-block w-100" href= <?php echo $class['information_plan'] ?> >                                                            
                     <table class=" w-100">
                         <tbody>
                         <tr>
@@ -33,8 +39,11 @@ if (isset($_SESSION['user'])) {
                         </tr>
                         <tr>
                             <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
-                            <td> room </td>
+                            <td> room: <?php echo get_room_name($dbconn,$class['rooms']);?></td>
                         </tr>
+                        <tr>
+                            <td><input type="submit" name="course<?php echo $class['subject_id']; ?>" class="add-btn" value="Remove course" data-id="<?php echo $class['user_name']; ?>"></td>
+                        </tr>                        
                         </tbody>
                     </table>
                 </a>
@@ -70,26 +79,8 @@ if (isset($_SESSION['user'])) {
     }
     for($i=0;$i<10;$i++){
         $button = "course".$i;
-        if (isset($_POST[$button])){
-            echo "more";
-            delete_course($dbconn,$i,$user_id);            
-            $classes = get_registred_classes($dbconn,$user_id);               
-            foreach ($classes as $class){
-            ?>
-                <div class="card">
-                    <div class="title"><h3><?php echo $class['name_en'] ?></h3></div>
-                    <?php 
-                    $date_start = explode(" ",$class['time_start']);
-                    $date_end = explode(" ",$class['time_end']);
-                    ?>
-                    <div class="day">Day: <?php echo $date_start[0]?></div>
-                    <div class="start">Start: <?php echo $date_start[1] ?></div>
-                    <div class="end">End: <?php echo $date_end[1] ?></div>
-                    <div class="teacher"> Teacher: <?php echo $class['teacher'] ?></div>
-                    <input type="submit" name="course<?php echo $class['subject_id']; ?>" class="add-btn" value="Remove course" data-id="<?php echo $class['user_name']; ?>">            
-                </div> 
-                <?php 
-            }
+        if (isset($_POST[$button])){            
+            delete_course($dbconn,$i,$user_id);                                                   
             break;                
         }                                
     }
