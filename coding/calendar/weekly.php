@@ -104,6 +104,10 @@ if (isset($_SESSION['user'])) {
 </form>
 <?php
 }
+else {
+    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
+
+}
 ?>
 </section>
 <?php

@@ -86,7 +86,7 @@ function insert_other_event($dbconn, $user_name, $event_name,
     echo "<p> Succesfully added  event to schedule </p>";
 }
 function get_user_id($dbconn,$user_name) {
-    $sql = "SELECT id FROM student where user_name = '$user_name'";
+    $sql = "SELECT id FROM student WHERE user_name = '$user_name'";
     $result = pg_query($dbconn, $sql);
     if (!$result) {
         echo "
@@ -101,7 +101,7 @@ function validate_input($input) {
     return trim(strip_tags($input));
 }                        
 function get_registred_classes($dbconn,$user_id){    
-    $sql = "SELECT * FROM registred_class rc join subjects s on rc.subject_id = s.id WHERE rc.user_name = '$user_id';";
+    $sql = "SELECT * FROM registred_class rc JOIN subjects s ON rc.subject_id = s.id WHERE rc.user_name = '$user_id';";
     $result = pg_query($dbconn, $sql);
     $search_results = [];
     if (!$result) {
