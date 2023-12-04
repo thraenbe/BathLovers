@@ -6,7 +6,7 @@ include('../util/functions.php');
 get_header('Week');
 ?>
 <section>
-<img src="../images/ComeniusUniversity.png" alt="University">
+<!-- <img src="../images/ComeniusUniversity.png" alt="University"> -->
 <?php
 if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
@@ -15,10 +15,40 @@ if (isset($_SESSION['user'])) {
     $non_school_events = get_nonschool_events($dbconn,$user_id);
     echo "<h2>Courses:</h2>";
     ?>
-    <form id="calendarForm" method="post" action="weekly.php">    
+    <form id="calendarForm" method="post" action="weekly.php">  
+        
+    <table class="table table-hover">
+        <tbody>
     <?php    
     foreach ($classes as $class){
     ?>
+    <div class="card" >
+    <?php 
+            $date_start = explode(" ",$class['time_start']);
+            $date_end = explode(" ",$class['time_end']);
+            ?>
+        <tr>
+            <td><div class="day"> <?php echo $date_start[0]?></div></td>
+            <td>
+                <button type="button" class="btn btn-info btn-lg btn-block w-100">
+
+                    <table class=" w-100">
+                        <tbody>
+                        <tr>
+                            <th><div class="title"><h3><?php echo $class['name_en'] ?></h3></div></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
+                            <td> room </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </button>
+            </td>
+        </tr>
+    </div>
+<!-- 
         <div class="card">
             <div class="title"><h3><?php echo $class['name_en'] ?></h3></div>
             <?php 
@@ -30,9 +60,15 @@ if (isset($_SESSION['user'])) {
             <div class="end">End: <?php echo $date_end[1] ?></div>
             <div class="teacher"> Teacher: <?php echo $class['teacher'] ?></div>
             <input type="submit" name="course<?php echo $class['subject_id']; ?>" class="add-btn" value="Remove course" data-id="<?php echo $class['user_name']; ?>">            
-        </div>  
+        </div>   -->
 <?php
-    }    
+    } ?>
+        </tbody>
+    </table>
+   
+
+
+    <?php
     echo "<h2>Nonschool events:</h2>";
     foreach ($non_school_events as $event){
 ?>
