@@ -58,8 +58,13 @@ get_header('Search');
             ?>                    
                     <div class="center">
                         <div class="title"><?php echo $row['name_en'] ?></div>
-                        <div class="start"><?php echo $row['time_start'] ?></div>
-                        <div class="end"><?php echo $row['time_end'] ?></div>
+                        <?php
+                        $start=explode(" ",$row['time_start']);
+                        $end=explode(" ",$row['time_end']);                        
+                        ?>
+                        <div class="day"><?php echo $start[0] ?></div>
+                        <div class="start">Start: <?php echo $start[1] ?></div>
+                        <div class="end">End: <?php echo $end[1] ?></div>
                         <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
