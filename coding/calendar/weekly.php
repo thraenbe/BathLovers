@@ -48,8 +48,7 @@ if (isset($_SESSION['user'])) {
             </td>
         </tr>
     </div>
-
-<?php
+    <?php
     } ?>
         </tbody>
     </table>
