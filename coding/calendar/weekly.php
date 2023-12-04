@@ -48,19 +48,7 @@ if (isset($_SESSION['user'])) {
             </td>
         </tr>
     </div>
-<!-- 
-        <div class="card">
-            <div class="title"><h3><?php echo $class['name_en'] ?></h3></div>
-            <?php 
-            $date_start = explode(" ",$class['time_start']);
-            $date_end = explode(" ",$class['time_end']);
-            ?>
-            <div class="day">Day: <?php echo $date_start[0]?></div>
-            <div class="start">Start: <?php echo $date_start[1] ?></div>
-            <div class="end">End: <?php echo $date_end[1] ?></div>
-            <div class="teacher"> Teacher: <?php echo $class['teacher'] ?></div>
-            <input type="submit" name="course<?php echo $class['subject_id']; ?>" class="add-btn" value="Remove course" data-id="<?php echo $class['user_name']; ?>">            
-        </div>   -->
+
 <?php
     } ?>
         </tbody>
