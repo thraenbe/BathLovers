@@ -4,7 +4,6 @@ include('../templates/header.php');
 include('../util/db.php');
 include('../util/functions.php');
 get_header('Day');
-?>
-<?php
+include('schedule_mockup.php');
 include('../templates/footer.php');
 ?>
