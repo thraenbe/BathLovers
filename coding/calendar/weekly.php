@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) {
                         </tr>
                         <tr>
                             <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
-                            <td> room </td>
+                            <td> room: <?php echo get_room_name($dbconn,$class['rooms'])?></td>
                         </tr>
                         </tbody>
                     </table>

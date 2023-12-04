@@ -137,4 +137,16 @@ function delete_course($dbconn,$subject_id,$user_id){
         pg_free_result($result);
     }
 }
+function get_room_name ($dbconn,$roomid){
+    $sql = "SELECT name FROM rooms where id = '$roomid'";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else { 
+        $row = pg_fetch_array($result);
+        return $row["name"];  
+    }    
+}
 ?>
