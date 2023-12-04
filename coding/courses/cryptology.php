@@ -10,8 +10,8 @@
       var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-INF-178.html";
       var credits = "6 ECTS";
       var title = "Cryptology(1)";
-      var time1 = "Wendesday: 9:00 - 11:30";
-      var time2 = "Thursday: 9:00 - 11:30"
+      var time1 = "Wendesday: 16:30 - 18:00";
+      var time2 = "Thursday: 16:30 - 18:00"
       var courseTag = "Lecture";
       var languageTag = "Slovak & English";
       var teacher1 = "doc. RNDr. Martin Stanek, PhD. (prednášajúci)" ;

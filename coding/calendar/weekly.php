@@ -30,7 +30,7 @@ if (isset($_SESSION['user'])) {
         <tr>
             <td><div class="day"> <?php echo $date_start[0]?></div></td>
             <td>
-                <button type="button" class="btn btn-info btn-lg btn-block w-100">
+                <a type="button" class="btn btn-info btn-lg btn-block w-100" href= <?php echo $class['information_plan'] ?> >
 
                     <table class=" w-100">
                         <tbody>
@@ -44,7 +44,7 @@ if (isset($_SESSION['user'])) {
                         </tr>
                         </tbody>
                     </table>
-                </button>
+                </a>
             </td>
         </tr>
     </div>

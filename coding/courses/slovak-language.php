@@ -7,19 +7,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <script>
-      var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-IKVa-115.html";
+      var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-INF-176.html";
       var credits = "6 ECTS";
-      var title = "Introduction to computational intelligence";
-      var time1 = "Monday: 9:00 - 11:30";
-      var time2 = "Thursday: 9:00 - 11:30"
-      var courseTag = "Lecture";
-      var languageTag = "English";
-      var teacher1 = "prof. Ing. Igor Farkas 	(prednášajúci)";
-      var teacher2 = "RNDr. Kristína Malinovská, PhD. (cvičiaci)";
-      var room = "I9";
+      var title = "Unix for system administrators";
+      var time1 = "Monday: 14:00 - 15:30";
+      var time2 = "Thursday: 8:10 - 9:40"
+      var courseTag = "Lecture & Lab";
+      var languageTag = "English & Slovak";
+      var teacher1 = "RNDr. Jaroslav Janáček, PhD. (prednášajúci)" ;
+      var teacher2 = " Ing. Dušan Bernát, PhD. (cvičiaci)" ;
+      var room = "M-214";
       var code = "2-IKVa-115";
-      var topic = "The course objectives are to make the students familiar with basic principles of various computational methods of data processing that can commonly be called computational intelligence (CI). This includes mainly bottom-up approaches to solutions of (hard) problems based on various heuristics (soft computing), rather than exact approaches of traditional artificial intelligence based on logic (hard computing). Examples of CI are nature-inspired methods (artificial neural networks, evolutionary algorithms, fuzzy systems), as well as probabilistic methods and reinforcement learning. After the course the students will be able to conceptually understand the important terms and algorithms of CI, and choose appropriate method(s) for a given task. The theoretical introduction is combined with practical examples.";
-
+      var topic = "After completing the course, students will know the principles of UNIX systems administration and will be able to practically perform the basic activities of a system administrator."
 
       function displayValues() {
         document.getElementById("credits").innerText = credits;
