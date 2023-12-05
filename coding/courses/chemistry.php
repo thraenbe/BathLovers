@@ -9,9 +9,9 @@
     <script>
       var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-IKVa-115.html";
       var credits = "6 ECTS";
-      var title = "Introduction to computational intelligence";
-      var time1 = "Monday: 9:00 - 11:30";
-      var time2 = "Thursday: 9:00 - 11:30"
+      var title = "Chemistry";
+      var time1 = "Wednesday: 13:30 - 16:00";
+      var time2 = "";
       var courseTag = "Lecture";
       var languageTag = "English";
       var teacher1 = "prof. Ing. Igor Farkas 	(prednášajúci)";

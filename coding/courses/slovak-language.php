@@ -9,9 +9,9 @@
     <script>
       var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-INF-176.html";
       var credits = "6 ECTS";
-      var title = "Unix for system administrators";
-      var time1 = "Monday: 14:00 - 15:30";
-      var time2 = "Thursday: 8:10 - 9:40"
+      var title = "Slovak Language";
+      var time1 = "Thursday: 15:45 - 18:15";
+      var time2 = ""
       var courseTag = "Lecture & Lab";
       var languageTag = "English & Slovak";
       var teacher1 = "RNDr. Jaroslav Janáček, PhD. (prednášajúci)" ;

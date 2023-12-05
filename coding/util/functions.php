@@ -64,6 +64,11 @@ function add_course ($dbconn,$subject_id,$user_id) {
         echo "Unsucessfull adding";
     }
 }
+function get_subjects($dbconn,$row){    
+    $sql = "SELECT * FROM subjects WHERE id = $row;";
+    $result = pg_query($dbconn, $sql);
+    return $results;
+}
 function insert_other_event($dbconn, $user_name, $event_name, 
     $time_start, $time_end, $tag,  $description) {
     if(!$dbconn) {

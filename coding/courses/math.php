@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<?php
+session_start();
+include('../util/db.php');
+include('../util/functions.php');
+
+if (isset($_SESSION['user'])) {
+    $username = $_SESSION['user'];
+    $user_id = get_user_id($dbconn,$username);
+    $row = 1;
+    $subjects = get_subjects($dbconn,$row);
+    $non_school_events = get_nonschool_events($dbconn,$user_id);
+    echo "<h2>Courses:</h2>";
+    ?>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>course-information</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+
     <script>
       var website = "https://sluzby.fmph.uniba.sk/infolist/SK/2-IKVa-115.html";
       var credits = "6 ECTS";
-      var title = "Introduction to computational intelligence";
-      var time1 = "Monday: 9:00 - 11:30";
-      var time2 = "Thursday: 9:00 - 11:30"
+      var title = "math";
+      var time1 = "Monday: 8:00 - 10:30";
+      var time2 = "";
       var courseTag = "Lecture";
       var languageTag = "English";
       var teacher1 = "prof. Ing. Igor Farkas 	(prednášajúci)";
@@ -143,4 +155,8 @@
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+    
 </html>
+<?php } ?>
+       
+</section>
