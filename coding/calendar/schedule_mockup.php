@@ -58,25 +58,51 @@ if (isset($_SESSION['user'])) {
 
 
     <?php
-    echo "<h2>Nonschool events:</h2>";
-    foreach ($non_school_events as $event){
-?>
-<div class="card">
-    <div class="title"><h3><?php echo $event['event_name']?></h3></div>
-    <?php 
-        $date_start = explode(" ",$event['time_start']);
-        $date_end = explode(" ",$event['time_end']);
-        $date = explode("-",$date_start[0]);
-    ?>
-    <div class="day">Date: <?php echo $date[2].".".$date[1].".".$date[0]?></div>
-    <div class="start">Start: <?php echo $date_start[1] ?></div>
-    <div class="end">End: <?php echo $date_end[1] ?></div>
-    <div class="category">Category: <?php echo $event['category'] ?></div>            
-    <div class="details">Details: <?php echo $event['details'] ?></div>
-    <input type="submit" name="nonevent<?php echo $event['user_name']. " ". $event["time_start"]; ?>" class="add-btn" value="Remove event" data-id="<?php echo $event['user_name']; ?>">
-</div>
+    echo "<h2>Nonschool events:</h2>"; ?>
+
+    <table class="table table-hover">
+            <tbody>
+        <?php    
+       foreach ($non_school_events as $event){
+        ?>
+        <div class="card" >
+        <?php 
+                $date_start = explode(" ",$event['time_start']);
+                $date_end = explode(" ",$event['time_end']);
+                $date = explode("-",$date_start[0]);
+    
+                ?>
+            <tr>
+                <td><div class="day"> <?php echo $date[2].".".$date[1].".".$date[0]?></div></td>
+                <td>
+                    <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
+    
+                        <table class=" w-100">
+                            <tbody>
+                            <tr>
+                                <th><div class="title"><h3><?php echo $event['event_name'] ?></h3></div></th>
+                                <td><input type="submit" name="nonevent<?php echo $event['user_name']. " ". $event["time_start"]; ?>" class="add-btn" value="Remove event" data-id="<?php echo $event['user_name']; ?>"></td>
+                            </tr>
+                            <tr>
+                                <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
+                                <td> <div class="category"> <?php echo $event['category'] ?></div> </td>
+                            </tr>
+                            
+                            </tbody>
+                            
+                        </table>
+                        
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <?php
+        } ?>
+            </tbody>
+        </table>
+    
 <?php
-    }
+    
     for($i=0;$i<10;$i++){
         $button = "course".$i;
         if (isset($_POST[$button])){            
