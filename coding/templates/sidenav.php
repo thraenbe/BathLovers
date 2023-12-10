@@ -40,20 +40,27 @@
         <a href="../calendar/weekly.php">Week</a>
         <a href="../calendar/add_to_schedule.php" >Add Activity</a>
         <a href="../images/roomplan.jpg"> Room plan </a>
+        <a href="../search/search.php"> Search classes </a>
        
         <?php
         if(isset($_SESSION["user"])) {
-        ?>                
-        <strong>  Show events </strong>
-         <form method="post">
-            <input type="checkbox" id="lectures" name="lectures" value="Lectures">
-            <label for="school"> Classes</label><br>
-            <input type="checkbox" id="other" name="other" value="Other">
-            <label for="other"> Other events </label><br>
-        </form>
-        <form action="../login/login.php" method="post">
+            if ($title === "Day" ||  $title === "Week") {
+                ?>
+                <strong>  Show events </strong>
+                <form method="post">
+                    <input type="checkbox" id="lectures" name="lectures" value="Lectures">
+                    <label for="school"> Classes</label><br>
+                    <input type="checkbox" id="other" name="other" value="Other">
+                    <label for="other"> Other events </label><br>
+                </form>
+            <?php
+            }
+           
+            ?>                
+        
+        <!-- <form action="../login/login.php" method="post">
             <input name="logout" type="submit" id="odhlas" value="Logout" class="logoutbtn">                
-        </form>
+        </form> -->
         <?php
          
         }

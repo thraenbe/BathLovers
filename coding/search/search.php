@@ -78,6 +78,7 @@ get_header('Search');
                 $buttonName = 'class' . $i;                        
                 if (isset($_POST[$buttonName])) {
                     add_course($dbconn, $i, $user_id);
+                    echo "<p> <strong> Susscesfullly added '$buttonName' to schedule </strong> </p>"; 
                     $rows = search_subjects($dbconn,$_SESSION['searchtext']);
                     foreach ($rows as $row) {
                     ?>

@@ -106,7 +106,8 @@ if (isset($_SESSION['user'])) {
     for($i=0;$i<10;$i++){
         $button = "course".$i;
         if (isset($_POST[$button])){            
-            delete_course($dbconn,$i,$user_id);                                                   
+            delete_course($dbconn,$i,$user_id);
+            echo "<p> <strong> succesfully deleted '$button' from schedule </strong> </p>";                                                    
             break;                
         }                                
     }
