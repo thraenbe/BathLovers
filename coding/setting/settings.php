@@ -6,8 +6,8 @@ section {
     margin-top: 10px;
 }
 #userProfile {
-    height: 600px;
-    width: 600px;
+    height: 300px;
+    width: 300px;
     border-radius: 50%;
 	object-fit: cover;    
 }
@@ -21,7 +21,8 @@ section {
 	padding: 1px;
 	background-color: transparent;
 	box-sizing: border-box;		
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
+    text-align: center;	
 }
 .info { 
     margin-bottom: 10px;
@@ -73,9 +74,9 @@ get_header('Settings');
     <!-- Change Password Button -->    
     <!-- Password Input -->
     <label for="heslo">Old password:</label><br>
-    <input type="password" id="oldpassword" name="oldpassword" class="input"><br>    
+    <input type="password" id="oldpassword" name="oldpassword" class="input" placeholder="Type old password"><br>    
     <label for="heslo">New password:</label><br>
-    <input type="password" id="newpassword" name="newpassword" class="input"><br>
+    <input type="password" id="newpassword" name="newpassword" class="input" placeholder="Type new password"><br>
     <!-- change pass button     -->
     <input id="changePasswordBtn" type="submit" class="changeBtn" name="changePasswordBtn" value="Change Password"  ><br>          
 </form>

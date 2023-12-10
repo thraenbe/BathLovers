@@ -69,7 +69,7 @@ get_header('Search');
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
                         ?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="Add" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
             <?php                                        
                 }
@@ -88,7 +88,7 @@ get_header('Search');
                         <div class="end"><?php echo $row['time_end'] ?></div>
                         <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
                         <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="Add" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
                     <?php
                     }
