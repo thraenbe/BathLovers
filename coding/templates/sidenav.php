@@ -51,11 +51,17 @@
                     <input type="checkbox" id="lectures" name="lectures" value="Lectures">
                     <label for="school"> Classes</label><br>
                     <input type="checkbox" id="other" name="other" value="Other">
-                    <label for="other"> Other events </label><br>
+                    <label for="other"> Other events </label><br>                    
+                </form>                
+                <form action="../login/login.php" method="post">
+                <input name="logout" type="submit" id="odhlas" value="Logout"> 
                 </form>
+                
             <?php
             }
-           
+            if (isset($_POST['logout'])){
+                session_unset();	            
+            }
             ?>                
         
         <!-- <form action="../login/login.php" method="post">
