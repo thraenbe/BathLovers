@@ -7,7 +7,9 @@ https://www.figma.com/file/odz8aDwu7wk6On5ZeIgt4t/calendar_by_colder?type=design
 
 Prototype for desktop use:\
 https://www.figma.com/file/rA8n0ve5aAqwIrxwri2RtT/First-Page?type=design&mode=design&t=oZcaqMjstGB0hYXl-1
+
 Link on webpage:
 http://89.221.219.125/candle/coding/login/login.php
+
 user:AliceSmith
 password: password123
