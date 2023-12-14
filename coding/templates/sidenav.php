@@ -53,20 +53,18 @@
                     <input type="checkbox" id="other" name="other" value="Other">
                     <label for="other"> Other events </label><br>                    
                 </form>                
-                <form action="../login/login.php" method="post">
-                <input name="logout" type="submit" id="odhlas" value="Logout"> 
-                </form>
                 
             <?php
             }
             if (isset($_POST['logout'])){
-                session_unset();	            
+                session_unset();
+                	            
             }
             ?>                
         
-        <!-- <form action="../login/login.php" method="post">
+        <form action="../login/login.php" method="post">
             <input name="logout" type="submit" id="odhlas" value="Logout" class="logoutbtn">                
-        </form> -->
+        </form>
         <?php
          
         }
