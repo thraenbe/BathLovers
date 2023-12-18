@@ -106,31 +106,64 @@ function validate_input($input) {
     return trim(strip_tags($input));
 }                        
 function get_registred_classes($dbconn,$user_id){    
-    $sql = "SELECT * FROM registred_class rc JOIN subjects s ON rc.subject_id = s.id WHERE rc.user_name = '$user_id';";
+    $sql = "SELECT * FROM registred_class rc 
+            JOIN subjects s ON rc.subject_id = s.id 
+            WHERE rc.user_name = '$user_id';";
     $result = pg_query($dbconn, $sql);
     $search_results = [];
     if (!$result) {
         return [];
-    } else {        
+    } else {
         while ($row = pg_fetch_assoc($result)) {
             $search_results[] = $row;
         }
+        usort($search_results, function ($a, $b) {
+            $daysOfWeek = [
+                'Monday' => 1,
+                'Tuesday' => 2,
+                'Wednesday' => 3,
+                'Thursday' => 4,
+                'Friday' => 5,
+                'Saturday' => 6,
+                'Sunday' => 7
+            ];
+            $dayOfWeekA = $daysOfWeek[explode(' ', $a['time_start'])[0]];
+            $dayOfWeekB = $daysOfWeek[explode(' ', $b['time_start'])[0]];
+            $timeA = strtotime($a['time_start']);
+            $timeB = strtotime($b['time_start']);
+            if ($dayOfWeekA != $dayOfWeekB) {
+                return $dayOfWeekA - $dayOfWeekB;
+            }
+            return $timeA - $timeB;
+        });
         return $search_results;
     }
 }
-function get_nonschool_events($dbconn,$user_id){    
+function get_nonschool_events($dbconn, $user_id)
+{
     $sql = "SELECT * FROM other_events WHERE user_name = $user_id;";
     $result = pg_query($dbconn, $sql);
     $search_results = [];
+
     if (!$result) {
         return [];
-    } else {        
+    } else {
         while ($row = pg_fetch_assoc($result)) {
             $search_results[] = $row;
         }
+
+        // Sort events by start_date
+        usort($search_results, function ($a, $b) {
+            $start_date_a = strtotime($a['time_start']);
+            $start_date_b = strtotime($b['time_start']);
+
+            return $start_date_a - $start_date_b;
+        });
+
         return $search_results;
     }
 }
+
 function delete_course($dbconn,$subject_id,$user_id){
     $sql = "DELETE FROM registred_class WHERE subject_id = $subject_id AND user_name = $user_id";
     $result = pg_query($dbconn, $sql);
