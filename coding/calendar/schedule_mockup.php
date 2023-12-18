@@ -81,7 +81,7 @@ if (isset($_SESSION['user'])) {
                             <tbody>
                             <tr>
                                 <th><div class="title"><h3><?php echo $event['event_name'] ?></h3></div></th>
-                                <td><input type="submit" name="nonevent<?php echo $event['user_name']. " ". $event["time_start"]; ?>" class="add-btn" value="Remove event" data-id="<?php echo $event['user_name']; ?>"></td>
+                                <td><input type="submit" name="nonevent-<?php echo $event['id']; ?>" class="add-btn" value="Remove event" data-id="<?php echo $event['user_name']; ?>"></td>                                
                             </tr>
                             <tr>
                                 <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
@@ -107,6 +107,14 @@ if (isset($_SESSION['user'])) {
         $button = "course".$i;
         if (isset($_POST[$button])){            
             delete_course($dbconn,$i,$user_id);
+            echo "<p> <strong> succesfully deleted '$button' from schedule </strong> </p>";                                                    
+            break;                
+        }                                
+    }
+    for($i=0;$i<10;$i++){
+        $button = "course".$i;
+        if (isset($_POST["nonevent-$i"])){            
+            delete_nonschool_event($dbconn,$i);
             echo "<p> <strong> succesfully deleted '$button' from schedule </strong> </p>";                                                    
             break;                
         }                                

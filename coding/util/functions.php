@@ -64,11 +64,11 @@ function add_course ($dbconn,$subject_id,$user_id) {
         echo "Unsucessfull adding";
     }
 }
-function get_subjects($dbconn,$row){    
-    $sql = "SELECT * FROM subjects WHERE id = $row;";
-    $result = pg_query($dbconn, $sql);
-    return $results;
-}
+// function get_subjects($dbconn,$row){    
+//     $sql = "SELECT * FROM subjects WHERE id = $row;";
+//     $result = pg_query($dbconn, $sql);
+//     return $results;
+// }
 function insert_other_event($dbconn, $user_name, $event_name, 
     $time_start, $time_end, $tag,  $description) {
     if(!$dbconn) {
@@ -153,5 +153,16 @@ function get_room_name ($dbconn,$roomid){
         $row = pg_fetch_array($result);
         return $row["name"];  
     }    
+}
+function delete_nonschool_event($dbconn,$event_id){
+    $sql = "DELETE FROM other_events WHERE id = $event_id";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else {
+        pg_free_result($result);
+    }
 }
 ?>
