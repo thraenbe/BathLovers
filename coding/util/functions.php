@@ -198,4 +198,78 @@ function delete_nonschool_event($dbconn,$event_id){
         pg_free_result($result);
     }
 }
+function get_Subject($dbconn,$id){
+    $sql = "SELECT * FROM subjects WHERE id = '$id'";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else { 
+        $row = pg_fetch_array($result);
+        return $row;
+    }
+}
+// resolving conflicts part iteration through all events 
+// !!!!!!!events are type of class
+function hasTimeConflict_Class_Class($newEvent, $existingEvents) {
+    foreach ($existingEvents as $existingEvent) {
+        // print_r($newEvent);        
+        if (checkTimeConflict_Class_Class($newEvent, $existingEvent)) {                        
+            return true; // Conflict detected
+        }
+    }
+    return false; // No conflict
+}
+// resolving conflicts part compare event vs event
+function checkTimeConflict_Class_Class($event1, $event2) {
+    $day_week = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    $s1_day_h_m = explode(" ",$event1['time_start']);
+    $s1_h_m = explode(":",$s1_day_h_m[1]);
+    $start1_day = array_search($s1_day_h_m[0],$day_week);
+    $start1_hour = (int) $s1_h_m[0];
+    $start1_minute = (int) $s1_h_m[1];
+    
+    $s2_day_h_m = explode(" ",$event2['time_start']);
+    $s2_h_m = explode(":",$s2_day_h_m[1]);
+    $start2_day = array_search($s2_day_h_m[0],$day_week);
+    $start2_hour = (int) $s2_h_m[0];
+    $start2_minute = (int) $s2_h_m[1];
+    
+    $e1_day_h_m = explode(" ",$event1['time_end']);
+    $e1_h_m = explode(":",$e1_day_h_m[1]);
+    $end1_day = array_search($e1_day_h_m[0],$day_week);
+    $end1_hour = (int) $e1_h_m[0];
+    $end1_minute = (int) $e1_h_m[1];
+    
+    $e2_day_h_m = explode(" ",$event2['time_end']);
+    $e2_h_m = explode(":",$e2_day_h_m[1]);
+    $end2_day = array_search($e2_day_h_m[0],$day_week);
+    $end2_hour = (int) $e2_h_m[0];
+    $end2_minute = (int) $e2_h_m[1];
+    
+    $s1_seconds = $start1_day*24*60 + $start1_hour*60 + $start1_minute;
+    $s2_seconds = $start2_day*24*60 + $start2_hour*60 + $start2_minute;
+    $e1_seconds = $end1_day*24*60 + $end1_hour*60 + $end1_minute;
+    $e2_seconds = $end2_day*24*60 + $end2_hour*60 + $end2_minute;
+    if($s1_seconds == $s2_seconds || $e1_seconds == $e2_seconds) return true;
+    if($s1_seconds < $s2_seconds){
+        if ($e1_seconds > $s2_seconds)return true;
+    }
+    if($s1_seconds > $s2_seconds){
+        if ($e2_seconds > $s1_seconds)return true;
+    }
+    return false;  
+    
+}  
+// convert nonschool event to class format
+function convertToClassFormat($existingNonSchoolEvents) {
+    $nontoclass = [];
+    foreach ($existingNonSchoolEvents as $event) {        
+        $startDateTime = new DateTime($event['time_start']);
+        $endDateTime = new DateTime($event['time_end']);                        
+        $nontoclass[] = ['time_start' => $startDateTime->format('l')." ".explode(' ',$event['time_start'])[1],'time_end' => $endDateTime->format('l')." ".explode(' ',$event['time_end'])[1],];
+    }    
+    return $nontoclass;
+}
 ?>

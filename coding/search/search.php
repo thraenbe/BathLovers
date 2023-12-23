@@ -76,9 +76,18 @@ get_header('Search');
             }
             for ($i=0;$i<30;$i++){
                 $buttonName = 'class' . $i;                        
-                if (isset($_POST[$buttonName])) {
-                    add_course($dbconn, $i, $user_id);
-                    echo "<p> <strong> Susscesfullly added '$buttonName' to schedule </strong> </p>"; 
+                if (isset($_POST[$buttonName])) {                    
+                    $new_event = get_Subject($dbconn,$i);
+                    $classes = get_registred_classes($dbconn,$user_id);
+                    $non_school_events = get_nonschool_events($dbconn,$user_id);                                        
+                    if (hasTimeConflict_Class_Class($new_event, $classes)) {
+                        echo 'Time conflict detected with classes';
+                    } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events))){
+                        echo 'Time conflict detected with nonschool event';
+                    } else {
+                        add_course($dbconn, $i, $user_id);
+                        echo "<p> <strong> Susscesfullly added '$buttonName' to schedule </strong> </p>";
+                    }                    
                     $rows = search_subjects($dbconn,$_SESSION['searchtext']);
                     foreach ($rows as $row) {
                     ?>
