@@ -64,11 +64,7 @@ function add_course ($dbconn,$subject_id,$user_id) {
         echo "Unsucessfull adding";
     }
 }
-// function get_subjects($dbconn,$row){    
-//     $sql = "SELECT * FROM subjects WHERE id = $row;";
-//     $result = pg_query($dbconn, $sql);
-//     return $results;
-// }
+
 function insert_other_event($dbconn, $user_name, $event_name, 
     $time_start, $time_end, $tag,  $description) {
     if(!$dbconn) {
@@ -213,8 +209,7 @@ function get_Subject($dbconn,$id){
 // resolving conflicts part iteration through all events 
 // !!!!!!!events are type of class
 function hasTimeConflict_Class_Class($newEvent, $existingEvents) {
-    foreach ($existingEvents as $existingEvent) {
-        // print_r($newEvent);        
+    foreach ($existingEvents as $existingEvent) {           
         if (checkTimeConflict_Class_Class($newEvent, $existingEvent)) {                        
             return true; // Conflict detected
         }
@@ -271,5 +266,22 @@ function convertToClassFormat($existingNonSchoolEvents) {
         $nontoclass[] = ['time_start' => $startDateTime->format('l')." ".explode(' ',$event['time_start'])[1],'time_end' => $endDateTime->format('l')." ".explode(' ',$event['time_end'])[1],];
     }    
     return $nontoclass;
+}
+// time ocnflict nonschool event vs nonschool event
+function check_time_conflict_non_school_event_vs_nonschool_event($new_non_sch_event,$existing_nonsch_events){
+    $n_start_date = new DateTime($new_non_sch_event['time_start']);
+    $n_end_date = new DateTime($new_non_sch_event['time_end']);
+    foreach($existing_nonsch_events as $exist_nonsch_event){
+        $e_start_date = new DateTime($exist_nonsch_event['time_start']);
+        $e_end_date = new DateTime($exist_nonsch_event['time_end']);
+        if($n_start_date == $e_start_date || $n_end_date == $e_end_date) return true;
+        if($n_start_date < $e_start_date){
+            if ($n_end_date > $e_start_date)return true;
+        }
+        if($n_start_date > $e_end_date){
+            if ($e_end_date > $n_start_date)return true;
+        }
+        return false;
+    }
 }
 ?>

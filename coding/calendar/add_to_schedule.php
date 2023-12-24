@@ -52,7 +52,16 @@ if (isset($_SESSION['user'])) {
     }
     if(isset($_POST["add"]) && empty($errors)) {
         $user_id = get_user_id($dbconn, $_SESSION['user']);
-        insert_other_event($dbconn, $user_id, $event_name, $start_time, $end_time, $tag, $description);
+        $classes = get_registred_classes($dbconn,$user_id);
+        $non_school_events = get_nonschool_events($dbconn,$user_id);                                        
+        $nonschool_event = [['time_start'=>$start_time,'time_end'=>$end_time]];
+        if (hasTimeConflict_Class_Class(convertToClassFormat($nonschool_event)[0], $classes)) {
+            echo 'Time conflict detected with classes';
+        } else if (check_time_conflict_non_school_event_vs_nonschool_event(['time_start'=>$start_time,'time_end'=>$end_time],$non_school_events)){
+            echo 'Time conflict detected with nonschool event';
+        } else {
+            insert_other_event($dbconn, $user_id, $event_name, $start_time, $end_time, $tag, $description);            
+        }            
     }
     else {
         echo "<p> Please fill out all fields </p>";
