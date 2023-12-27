@@ -386,4 +386,105 @@ function generateWeeks($start_date,$end_date) {
     }
     return $weeksArray;
 }
+
+function get_classes_table($dbconn, $classes) {
+    echo "<h2>Courses:</h2>";
+    ?>
+    <table class="table table-hover">
+        <tbody>
+    <?php    
+    foreach ($classes as $class){
+    ?>
+    <div class="card">
+    <?php 
+            $date_start = explode(" ",$class['time_start']);
+            $date_end = explode(" ",$class['time_end']);
+            ?>
+        <tr>        
+            <td><div class="day"> <?php echo $date_start[0]?></div></td>
+            <td>
+                <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
+                    <table class=" w-100">
+                        <tbody>
+                        <tr>
+                            <th><div class="title"><h3><?php echo $class['name_en'] ?></h3></div></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
+                            <td> room: <?php echo get_room_name($dbconn,$class['rooms']);?></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="course<?php echo $class['subject_id']; ?>"> Remove? </td>
+                            <td>  <a href= <?php echo $class['information_plan'] ?>>  Information plan</a></td>                            
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id ="course<?php echo $class['subject_id']; ?>" name="class[]" value="<?php echo $class['subject_id']; ?>"></td>
+                        </tr>                        
+                        </tbody>
+                    </table>
+                </a>
+            </td>
+        </tr>
+    </div>
+    <?php
+    } ?>
+        </tbody>
+    </table>
+<?php
+}
+
+
+function get_events_table($dbconn, $non_school_events ) {
+    echo "<h2>Nonschool events:</h2>";
+    ?>
+    <table class="table table-hover">
+    <tbody>
+    <?php    
+    foreach ($non_school_events as $event){
+        ?>
+        <div class="card" >
+        <?php 
+                $date_start = explode(" ",$event['time_start']);
+                $date_end = explode(" ",$event['time_end']);
+                $date = explode("-",$date_start[0]);
+
+                ?>
+            <tr>
+                <td><div class="day"> <?php echo $date[2].".".$date[1].".".$date[0]?></div></td>
+                <td>
+                    <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
+
+                        <table class=" w-100">
+                            <tbody>
+                            <tr>
+                                <th><div class="title"><h3><?php echo $event['event_name'] ?></h3></div></th>
+                   
+                            </tr>
+                            <tr>
+                                <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
+                                <td> <div class="category"> <?php echo $event['category'] ?></div> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="<?php echo $event['id'];?>"> Remove? </label></td>
+                        </tr>
+                            <tr>
+                            <td><input type="checkbox" name="nonevent[]" value="<?php echo $event['id']?>" id="<?php echo $event['id']?>"></td>       
+                            </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+        </div>
+        <?php
+    } 
+    ?>
+    </tbody>
+   </table>
+    <?php
+
+}
+
+
 ?>

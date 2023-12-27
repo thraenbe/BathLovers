@@ -17,115 +17,35 @@ if (isset($_SESSION['user'])) {
     // chronologically sorted on date interval you type
     $all_events = sort_all_events($classes,$non_school_events);    
     // stayed old showing events
-    echo "<h2>Courses:</h2>";
-    ?>
-    <form id="calendarForm" method="post" action="weekly.php">  
-        
-    <table class="table table-hover">
-        <tbody>
-    <?php    
-    foreach ($classes as $class){
-    ?>
-    <div class="card" >
-    <?php 
-            $date_start = explode(" ",$class['time_start']);
-            $date_end = explode(" ",$class['time_end']);
-            ?>
-        <tr>        
-            <td><div class="day"> <?php echo $date_start[0]?></div></td>
-            <td>
-                <a type="button" class="btn btn-info btn-lg btn-block w-100" href= <?php echo $class['information_plan'] ?> >                                                            
-                    <table class=" w-100">
-                        <tbody>
-                        <tr>
-                            <th><div class="title"><h3><?php echo $class['name_en'] ?></h3></div></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
-                            <td> room: <?php echo get_room_name($dbconn,$class['rooms']);?></td>
-                        </tr>
-                        <tr>
-                            <td><input type="submit" name="course<?php echo $class['subject_id']; ?>" class="add-btn" value="Remove course" data-id="<?php echo $class['user_name']; ?>"></td>
-                        </tr>                        
-                        </tbody>
-                    </table>
-                </a>
-            </td>
-        </tr>
-    </div>
-    <?php
-    } ?>
-        </tbody>
-    </table>
-   
-
-
-    <?php
-    echo "<h2>Nonschool events:</h2>"; ?>
-
-    <table class="table table-hover">
-            <tbody>
-        <?php    
-       foreach ($non_school_events as $event){
-        ?>
-        <div class="card" >
-        <?php 
-                $date_start = explode(" ",$event['time_start']);
-                $date_end = explode(" ",$event['time_end']);
-                $date = explode("-",$date_start[0]);
-    
-                ?>
-            <tr>
-                <td><div class="day"> <?php echo $date[2].".".$date[1].".".$date[0]?></div></td>
-                <td>
-                    <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
-    
-                        <table class=" w-100">
-                            <tbody>
-                            <tr>
-                                <th><div class="title"><h3><?php echo $event['event_name'] ?></h3></div></th>
-                                <td><input type="submit" name="nonevent-<?php echo $event['id']; ?>" class="add-btn" value="Remove event" data-id="<?php echo $event['user_name']; ?>"></td>                                
-                            </tr>
-                            <tr>
-                                <td> <div class="time"><?php echo $date_start[1] ?> - <?php echo $date_end[1] ?> </div> </td>
-                                <td> <div class="category"> <?php echo $event['category'] ?></div> </td>
-                            </tr>
-                            
-                            </tbody>
-                            
-                        </table>
-                        
-                    </a>
-                </td>
-            </tr>
-        </div>
-        <?php
-        } ?>
-            </tbody>
-        </table>
-    
-<?php
-    
-    for($i=0;$i<10;$i++){
-        $button = "course".$i;
-        if (isset($_POST[$button])){            
-            delete_course($dbconn,$i,$user_id);
-            echo "<p> <strong> succesfully deleted '$button' from schedule </strong> </p>";                                                    
-            break;                
-        }                                
-    }
-    for($i=0;$i<10;$i++){
-        $button = "course".$i;
-        if (isset($_POST["nonevent-$i"])){            
-            delete_nonschool_event($dbconn,$i);
-            echo "<p> <strong> succesfully deleted '$button' from schedule </strong> </p>";                                                    
-            break;                
-        }                                
-    }
+  
 ?>
+    <form method="post">  
+    <?php
+       
+    get_classes_table($dbconn, $classes); 
+    get_events_table($dbconn, $non_school_events); 
+?>
+    <input name="remove" type="submit", value="Remove selected">
 </form>
 <?php
+    if(isset($_POST["remove"] ) && isset($_POST['class'])) {
+        foreach ($_POST['class'] as $class) {
+            delete_course($dbconn, $class, $user_id);
+            echo "Succesfully deleted '$class'";
+        }
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+     else if(isset($_POST["remove"] ) && isset($_POST['nonevent'])) {
+        foreach ($_POST['nonevent'] as $event) {
+            echo $event;
+            delete_nonschool_event($dbconn, $event);
+            echo "Succesfully deleted '$event'";
+        }
+
+        echo "<meta http-equiv='refresh' content='0'>";
+        echo "Succesfully deleted selected items";
+
+    }
 }
 else {
     echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
