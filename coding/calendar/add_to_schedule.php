@@ -53,10 +53,12 @@ if (isset($_SESSION['user'])) {
     if(isset($_POST["add"]) && empty($errors)) {
         $user_id = get_user_id($dbconn, $_SESSION['user']);
         $classes = get_registred_classes($dbconn,$user_id);
-        $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                 
-        $nonschool_event = [['time_start'=>$start_time,'time_end'=>$end_time]];
-        if (hasTimeConflict_Class_Class(convertToClassFormat($nonschool_event)[0], $classes)) {
-            echo 'Time conflict detected with classes';
+        $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                         
+        $startDateTime = new DateTime($start_time);
+        $endDateTime = new DateTime($end_time);   
+        $nonschool_event = ['time_start'=>$startDateTime->format('l')." ".explode(' ',$start_time)[1],'time_end'=>$endDateTime->format('l')." ".explode(' ',$end_time)[1]];
+        if (hasTimeConflict_Class_Class($nonschool_event, $classes)) {
+            echo 'Time conflict detected with classes';            
         } else if (check_time_conflict_non_school_event_vs_nonschool_event(['time_start'=>$start_time,'time_end'=>$end_time],$non_school_events)){
             echo 'Time conflict detected with nonschool event';
         } else {

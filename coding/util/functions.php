@@ -227,6 +227,7 @@ function sort_all_events($classes,$nonschool_events){
 }
 // delete existing courses and nonschool events
 function delete_course($dbconn,$subject_id,$user_id){
+    echo $subject_id;
     $sql = "DELETE FROM registred_class WHERE subject_id = $subject_id AND user_name = $user_id";
     $result = pg_query($dbconn, $sql);
     if (!$result) {
@@ -315,7 +316,7 @@ function checkTimeConflict_Class_Class($event1, $event2) {
     
 }  
 // convert nonschool event to class format
-function convertToClassFormat($existingNonSchoolEvents) {
+function convertToClassFormat($existingNonSchoolEvents) {    
     $nontoclass = [];
     foreach ($existingNonSchoolEvents as $event) {        
         $startDateTime = new DateTime($event['time_start']);
@@ -338,16 +339,20 @@ function check_time_conflict_non_school_event_vs_nonschool_event($new_non_sch_ev
     $n_end_date = new DateTime($new_non_sch_event['time_end']);
     foreach($existing_nonsch_events as $exist_nonsch_event){
         $e_start_date = new DateTime($exist_nonsch_event['time_start']);
-        $e_end_date = new DateTime($exist_nonsch_event['time_end']);
+        $e_end_date = new DateTime($exist_nonsch_event['time_end']);        
         if($n_start_date == $e_start_date || $n_end_date == $e_end_date) return true;
         if($n_start_date < $e_start_date){
-            if ($n_end_date > $e_start_date)return true;
+            if ($n_end_date > $e_start_date){
+                return true;
+            }
         }
         if($n_start_date > $e_end_date){
-            if ($e_end_date > $n_start_date)return true;
-        }
-        return false;
+            if ($e_end_date > $n_start_date){
+                return true;
+            }
+        }        
     }
+    return false;
 }
 // weekly view generate weeks
 function generateWeeks($start_date,$end_date) {
