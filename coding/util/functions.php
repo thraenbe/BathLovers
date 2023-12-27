@@ -222,8 +222,7 @@ function sort_all_events($classes,$nonschool_events){
             return $dayOfWeekA - $dayOfWeekB;
         }
         return $timeA - $timeB;
-    });
-    print_r($all_events);
+    });    
     return $all_events;
 }
 // delete existing courses and nonschool events
