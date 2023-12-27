@@ -79,7 +79,7 @@ get_header('Search');
                 if (isset($_POST[$buttonName])) {                    
                     $new_event = get_Subject($dbconn,$i);
                     $classes = get_registred_classes($dbconn,$user_id);
-                    $non_school_events = get_nonschool_events($dbconn,$user_id);                                        
+                    $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                        
                     if (hasTimeConflict_Class_Class($new_event, $classes)) {
                         echo 'Time conflict detected with classes';
                     } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events))){

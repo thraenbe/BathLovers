@@ -12,7 +12,11 @@ if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
     $user_id = get_user_id($dbconn,$username);
     $classes = get_registred_classes($dbconn,$user_id);
-    $non_school_events = get_nonschool_events($dbconn,$user_id);
+    $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-12-01','2024-01-24');
+    $generated_weeks = generateWeeks('2023-05-29','2024-09-01');      
+    // chronologically sorted on date interval you type
+    $all_events = sort_all_events($classes,$non_school_events);    
+    // stayed old showing events
     echo "<h2>Courses:</h2>";
     ?>
     <form id="calendarForm" method="post" action="weekly.php">  

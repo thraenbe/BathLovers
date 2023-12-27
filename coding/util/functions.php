@@ -100,7 +100,20 @@ function get_user_id($dbconn,$user_name) {
 }
 function validate_input($input) {
     return trim(strip_tags($input));
-}                        
+}    
+function get_Subject($dbconn,$id){
+    $sql = "SELECT * FROM subjects WHERE id = '$id'";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else { 
+        $row = pg_fetch_array($result);
+        return $row;
+    }
+}
+// list of classes and nonschool events                    
 function get_registred_classes($dbconn,$user_id){    
     $sql = "SELECT * FROM registred_class rc 
             JOIN subjects s ON rc.subject_id = s.id 
@@ -135,9 +148,9 @@ function get_registred_classes($dbconn,$user_id){
         return $search_results;
     }
 }
-function get_nonschool_events($dbconn, $user_id)
+function get_nonschool_events($dbconn, $user_id,$start_date_week,$end_date_week)
 {
-    $sql = "SELECT * FROM other_events WHERE user_name = $user_id;";
+    $sql = "SELECT * FROM other_events WHERE user_name = $user_id AND time_start >= '$start_date_week 00:00' and time_end <='$end_date_week 23:59';";
     $result = pg_query($dbconn, $sql);
     $search_results = [];
 
@@ -159,7 +172,61 @@ function get_nonschool_events($dbconn, $user_id)
         return $search_results;
     }
 }
-
+function sort_all_events($classes,$nonschool_events){
+    $converted_nonsch_events = convertToClassFormat($nonschool_events);
+    $all_events = [];
+    foreach ($classes as $class){
+        $all_events[] = 
+        [
+            'event_type' => '0',
+            'user_name' => $class['user_name'], 
+            'subject_id' => $class['subject_id'], 
+            'rooms' => $class['rooms'], 
+            'id' => $class['id'], 
+            'name' => $class['name'], 
+            'name_en' => $class['name_en'], 
+            'teacher' => $class['teacher'], 
+            'information_plan' => $class['information_plan'],
+            'time_start' => $class['time_start'],
+            'time_end' => $class['time_end'],
+        ];
+    }
+    foreach($converted_nonsch_events as $nonsch_event){
+        $all_events[] = 
+        [
+            'event_type' => '1',
+            'id' => $nonsch_event['id'],
+            'user_name' => $nonsch_event['user_name'],
+            'nonsch_event_name' => $nonsch_event['event_name'],            
+            'time_start' => $nonsch_event['time_start'],
+            'time_end' => $nonsch_event['time_end'],
+            'category' => $nonsch_event['category'],
+            'details' => $nonsch_event['details']
+        ];
+    }
+    usort($all_events, function ($a, $b) {
+        $daysOfWeek = [
+            'Monday' => 1,
+            'Tuesday' => 2,
+            'Wednesday' => 3,
+            'Thursday' => 4,
+            'Friday' => 5,
+            'Saturday' => 6,
+            'Sunday' => 7
+        ];        
+        $dayOfWeekA = $daysOfWeek[explode(' ', $a['time_start'])[0]];
+        $dayOfWeekB = $daysOfWeek[explode(' ', $b['time_start'])[0]];
+        $timeA = strtotime($a['time_start']);
+        $timeB = strtotime($b['time_start']);
+        if ($dayOfWeekA != $dayOfWeekB) {
+            return $dayOfWeekA - $dayOfWeekB;
+        }
+        return $timeA - $timeB;
+    });
+    print_r($all_events);
+    return $all_events;
+}
+// delete existing courses and nonschool events
 function delete_course($dbconn,$subject_id,$user_id){
     $sql = "DELETE FROM registred_class WHERE subject_id = $subject_id AND user_name = $user_id";
     $result = pg_query($dbconn, $sql);
@@ -171,6 +238,19 @@ function delete_course($dbconn,$subject_id,$user_id){
         pg_free_result($result);
     }
 }
+
+function delete_nonschool_event($dbconn,$event_id){
+    $sql = "DELETE FROM other_events WHERE id = $event_id";
+    $result = pg_query($dbconn, $sql);
+    if (!$result) {
+        echo "
+        ". preg_last_error()."";
+        exit;
+    } else {
+        pg_free_result($result);
+    }
+}
+
 function get_room_name ($dbconn,$roomid){
     $sql = "SELECT name FROM rooms where id = '$roomid'";
     $result = pg_query($dbconn, $sql);
@@ -183,29 +263,7 @@ function get_room_name ($dbconn,$roomid){
         return $row["name"];  
     }    
 }
-function delete_nonschool_event($dbconn,$event_id){
-    $sql = "DELETE FROM other_events WHERE id = $event_id";
-    $result = pg_query($dbconn, $sql);
-    if (!$result) {
-        echo "
-        ". preg_last_error()."";
-        exit;
-    } else {
-        pg_free_result($result);
-    }
-}
-function get_Subject($dbconn,$id){
-    $sql = "SELECT * FROM subjects WHERE id = '$id'";
-    $result = pg_query($dbconn, $sql);
-    if (!$result) {
-        echo "
-        ". preg_last_error()."";
-        exit;
-    } else { 
-        $row = pg_fetch_array($result);
-        return $row;
-    }
-}
+
 // resolving conflicts part iteration through all events 
 // !!!!!!!events are type of class
 function hasTimeConflict_Class_Class($newEvent, $existingEvents) {
@@ -263,7 +321,15 @@ function convertToClassFormat($existingNonSchoolEvents) {
     foreach ($existingNonSchoolEvents as $event) {        
         $startDateTime = new DateTime($event['time_start']);
         $endDateTime = new DateTime($event['time_end']);                        
-        $nontoclass[] = ['time_start' => $startDateTime->format('l')." ".explode(' ',$event['time_start'])[1],'time_end' => $endDateTime->format('l')." ".explode(' ',$event['time_end'])[1],];
+        $nontoclass[] = [
+            'id' => $event['id'],
+            'user_name' => $event['user_name'],
+            'event_name' => $event['event_name'],            
+            'time_start' => $startDateTime->format('l')." ".explode(' ',$event['time_start'])[1],
+            'time_end' => $endDateTime->format('l')." ".explode(' ',$event['time_end'])[1],
+            'category' => $event['category'],
+            'details' => $event['details']
+        ];            
     }    
     return $nontoclass;
 }
@@ -283,5 +349,37 @@ function check_time_conflict_non_school_event_vs_nonschool_event($new_non_sch_ev
         }
         return false;
     }
+}
+// weekly view generate weeks
+function generateWeeks($start_date,$end_date) {
+    $weeksArray = array();
+    $startDate = new DateTime($start_date);
+    $endDate = new DateTime($end_date);    
+    $currentDate = clone $startDate;
+    $currentWeek = 1;
+
+    while ($currentDate <= $endDate) {
+        $weekStartDate = clone $currentDate;
+        $weekEndDate = clone $currentDate;
+        $weekEndDate->modify('+6 days');
+
+        $datesInWeek = array();
+        $currentDay = clone $weekStartDate;
+        while ($currentDay <= $weekEndDate) {
+            $datesInWeek[] = $currentDay->format('Y-m-d');
+            $currentDay->modify('+1 day');
+        }
+
+        $weeksArray[] = array(
+            'week' => $currentWeek,
+            'startDate' => $weekStartDate->format('Y-m-d'),
+            'endDate' => $weekEndDate->format('Y-m-d'),
+            'datesInWeek' => $datesInWeek
+        );
+
+        $currentDate->modify('+7 days');
+        $currentWeek++;
+    }
+    return $weeksArray;
 }
 ?>
