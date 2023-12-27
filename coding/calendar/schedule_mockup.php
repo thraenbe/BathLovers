@@ -14,14 +14,13 @@ if (isset($_SESSION['user'])) {
     $classes = get_registred_classes($dbconn,$user_id);
     $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-12-01','2024-01-24');
     $generated_weeks = generateWeeks('2023-05-29','2024-09-01');      
-    // chronologically sorted on date interval you type
+    // chronologically sorted on date interval you type    
     $all_events = sort_all_events($classes,$non_school_events);    
     // stayed old showing events
   
-?>
-    <form method="post">  
-    <?php
-       
+?>    
+    <form method="post">      
+    <?php    
     get_classes_table($dbconn, $classes); 
     get_events_table($dbconn, $non_school_events); 
 ?>
@@ -34,10 +33,9 @@ if (isset($_SESSION['user'])) {
             echo "Succesfully deleted '$class'";
         }
         echo "<meta http-equiv='refresh' content='0'>";
-    }
-     else if(isset($_POST["remove"] ) && isset($_POST['nonevent'])) {
-        foreach ($_POST['nonevent'] as $event) {
-            echo $event;
+    } 
+    if(isset($_POST["remove"] ) && isset($_POST['nonevent'])) {
+        foreach ($_POST['nonevent'] as $event) {        
             delete_nonschool_event($dbconn, $event);
             echo "Succesfully deleted '$event'";
         }
@@ -45,7 +43,7 @@ if (isset($_SESSION['user'])) {
         echo "<meta http-equiv='refresh' content='0'>";
         echo "Succesfully deleted selected items";
 
-    }
+    }     
 }
 else {
     echo "<img src='../images/ComeniusUniversity.png' alt='University'>";

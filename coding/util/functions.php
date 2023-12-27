@@ -485,6 +485,4 @@ function get_events_table($dbconn, $non_school_events ) {
     <?php
 
 }
-
-
 ?>
