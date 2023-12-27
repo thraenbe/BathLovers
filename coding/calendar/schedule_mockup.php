@@ -128,6 +128,7 @@ if (isset($_SESSION['user'])) {
 <?php
 }
 else {
+    echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
     echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
 
 }
