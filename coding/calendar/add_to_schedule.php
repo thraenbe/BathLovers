@@ -58,9 +58,9 @@ if (isset($_SESSION['user'])) {
         $endDateTime = new DateTime($end_time);   
         $nonschool_event = ['time_start'=>$startDateTime->format('l')." ".explode(' ',$start_time)[1],'time_end'=>$endDateTime->format('l')." ".explode(' ',$end_time)[1]];
         if (hasTimeConflict_Class_Class($nonschool_event, $classes)) {
-            echo 'Time conflict detected with classes';            
+            ?><div style="color:red; font-weight:bold"><?php echo 'Time conflict detected with classes';?></div><?php
         } else if (check_time_conflict_non_school_event_vs_nonschool_event(['time_start'=>$start_time,'time_end'=>$end_time],$non_school_events)){
-            echo 'Time conflict detected with nonschool event';
+            ?><div style="color:red; font-weight:bold"><?php echo 'Time conflict detected with nonschool event';?></div><?php
         } else {
             insert_other_event($dbconn, $user_id, $event_name, $start_time, $end_time, $tag, $description);            
         }            

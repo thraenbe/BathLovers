@@ -84,7 +84,7 @@ function insert_other_event($dbconn, $user_name, $event_name,
         echo "<p> Error ". preg_last_error()."</p>";
         exit;
     }
-    echo "<p> Succesfully added  event to schedule </p>";
+    echo "<p style='color:green; font-weight:bold'> Succesfully added  event to schedule </p>";
 }
 function get_user_id($dbconn,$user_name) {
     $sql = "SELECT id FROM student WHERE user_name = '$user_name'";
