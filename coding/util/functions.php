@@ -148,6 +148,21 @@ function get_registred_classes($dbconn,$user_id){
         return $search_results;
     }
 }
+function get_registred_class_by_day($dbconn,$user_id,$day){
+    $sql = "SELECT * FROM registred_class rc
+    JOIN subjects s ON rc.subject_id = s.id
+    WHERE rc.user_name = '$user_id' AND time_start LIKE '$day%'";
+    $result = pg_query($dbconn, $sql);
+    $search_results = [];
+    if (!$result) {
+        return [];
+    } else {
+        while ($row = pg_fetch_assoc($result)) {
+            $search_results[] = $row;
+        }
+        return $search_results;
+    }
+}
 function get_nonschool_events($dbconn, $user_id,$start_date_week,$end_date_week)
 {
     $sql = "SELECT * FROM other_events WHERE user_name = $user_id AND time_start >= '$start_date_week 00:00' and time_end <='$end_date_week 23:59';";
