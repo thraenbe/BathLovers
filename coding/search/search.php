@@ -1,4 +1,6 @@
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 section {
 text-align: center;
@@ -26,6 +28,25 @@ margin-top: 10px;
 .input {
     width: 30%;    
 }
+.bad_notify, .good_notify {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    border: 3px solid #ccc;
+    padding: 1px;
+    border-radius: 10px;
+}
+.bad_notify {
+    color: black;
+    background-color: red;
+}
+.good_notify {    
+    color: white;
+    background-color: green;
+}
+
 </style>
 </head>
 <?php
@@ -81,12 +102,13 @@ get_header('Search');
                     $classes = get_registred_classes($dbconn,$user_id);
                     $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                        
                     if (hasTimeConflict_Class_Class($new_event, $classes)) {
-                        echo 'Time conflict detected with classes';
+                        echo "<p id='notification' class = 'bad_notify'> <strong>× Time conflict detected with classes</strong> </p>";
                     } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events))){
-                        echo 'Time conflict detected with nonschool event';
+                        echo "<p id='notification' class = 'bad_notify button'> <strong>× Time conflict detected with nonschool event</strong> </p>";
                     } else {
                         add_course($dbconn, $i, $user_id);
-                        echo "<p> <strong> Susscesfullly added '$buttonName' to schedule </strong> </p>";
+                        $n_class_name = get_Subject($dbconn,$i)['name'];
+                        echo "<p id='notification' class = 'good_notify'> <strong>✓ Class $n_class_name suscessfullly added to schedule </strong> </p>";
                     }                    
                     $rows = search_subjects($dbconn,$_SESSION['searchtext']);
                     foreach ($rows as $row) {
@@ -117,3 +139,16 @@ get_header('Search');
 <?php
 include('../templates/footer.php');
 ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var notification = document.getElementById('notification');
+    document.getElementById('course').focus();
+    // Show the notification
+    notification.style.display = 'block';
+
+    // Hide the notification after 10 seconds
+    setTimeout(function() {
+      notification.style.display = 'none';
+    }, 3000);
+  });
+</script>
