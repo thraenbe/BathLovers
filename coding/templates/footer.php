@@ -1,12 +1,9 @@
 <nav class="navbar sticky-bottom navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="btn btn-light navbar-brand" href="../calendar/weekly.php">
+            <a class="col-sm-6 btn btn-light navbar-brand" href="../calendar/weekly.php">
                 <img src="../icons/icons/tabbar/calendar.png" alt="Logo" class="d-inline-block align-text-top">
-            </a>        
-            <a class="btn btn-light navbar-brand" href="../search/search.php">
-                <img src="../icons/icons/tabbar/search.png" alt="Logo" class="d-inline-block align-text-top">
-            </a>          
-            <a class="btn btn-light navbar-brand" href="../setting/settings.php" id = "settingLink">
+            </a>                              
+            <a class="col-sm-6 btn btn-light navbar-brand" href="../setting/settings.php" id = "settingLink">
                 <img src="../icons/icons/tabbar/account.png" alt="Logo" class="d-inline-block align-text-top" id="settingChangeImage">
             </a>          
         </div>

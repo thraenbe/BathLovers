@@ -386,7 +386,20 @@ function generateWeeks($start_date,$end_date) {
     }
     return $weeksArray;
 }
+function generateDays($start_date, $end_date) {
+    $date_range = array();
 
+    $current_date = new DateTime($start_date);
+    $end_date = new DateTime($end_date);
+
+    while ($current_date <= $end_date) {
+        $date_range[] = $current_date->format('Y-m-d');
+        $current_date->modify('+1 day');
+    }
+
+    return $date_range;
+}
+// weekly view 
 function get_classes_table($dbconn, $classes) {
     echo "<h2>Courses:</h2>";
     ?>

@@ -15,15 +15,21 @@ function get_header($title) {
 		<h1><?php echo $title; ?></h1>
 	</header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="btn btn-light navbar-brand" onclick="openNav()">
-                <img src="../icons\icons\navbar\languege.png" alt="Logo" class="d-inline-block align-text-top">
-            </a>          
+    <div class="container-fluid d-flex justify-content-between">
+        <a class="btn btn-light navbar-brand" onclick="openNav()">
+            <img src="../icons/icons/navbar/languege.png" alt="Logo" class="d-inline-block align-text-top">
+        </a>          
+        <div>
+            <a class="btn btn-light navbar-brand" href="../search/search.php">
+                <img src="../icons/icons/tabbar/search.png" alt="Logo" class="d-inline-block align-text-top">
+            </a>
             <a class="btn btn-light navbar-brand" href="../calendar/add_to_schedule.php">
-                <img src="../icons\icons\tabbar\new.png" alt="Logo" class="d-inline-block align-text-top">
-            </a>          
+                <img src="../icons/icons/tabbar/new.png" alt="Logo" class="d-inline-block align-text-top">
+            </a>
         </div>
-    </nav>
+    </div>
+</nav>
+
 <?php 
 include('sidenav.php');         
 }
