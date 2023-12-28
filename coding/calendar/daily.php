@@ -23,8 +23,19 @@ if (isset($_SESSION['user'])) {
         <div><?php echo "$date_range[$actual_day]"; ?></div>
         <input type="submit" name="right_click" value=">">
         <?php
-        get_classes_table($dbconn, $classes); 
-        get_events_table($dbconn, $non_school_events);
+        $written_days = [];
+        foreach ($all_events as $event){
+            $write_day = 0;
+            if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){
+                $write_day = 1;                
+                $written_days[]=explode(" ",$event['time_start'])[0];
+            }
+            if ($event['event_type']==0){            
+                get_class_table($dbconn, $event,$write_day); 
+            } else {
+                get_event_table($dbconn, $event,$write_day);
+            }        
+        }   
         if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {
         echo" <input name='remove' type='submit', value='Remove selected'>";
         }

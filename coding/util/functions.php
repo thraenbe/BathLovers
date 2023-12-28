@@ -212,7 +212,7 @@ function sort_all_events($classes,$nonschool_events){
             'event_type' => '1',
             'id' => $nonsch_event['id'],
             'user_name' => $nonsch_event['user_name'],
-            'nonsch_event_name' => $nonsch_event['event_name'],            
+            'event_name' => $nonsch_event['event_name'],            
             'time_start' => $nonsch_event['time_start'],
             'time_end' => $nonsch_event['time_end'],
             'category' => $nonsch_event['category'],
@@ -414,22 +414,17 @@ function generateDays($start_date, $end_date) {
 
     return $date_range;
 }
-// weekly view 
-function get_classes_table($dbconn, $classes) {
-    echo "<h2>Courses:</h2>";
-    ?>
-    <table class="table table-hover">
-        <tbody>
-    <?php    
-    foreach ($classes as $class){
+// weekly view
+
+function get_class_table($dbconn, $class,$write_day) {            
     ?>
     <div class="card">
     <?php 
-            $date_start = explode(" ",$class['time_start']);
-            $date_end = explode(" ",$class['time_end']);
-            ?>
+        $date_start = explode(" ",$class['time_start']);
+        $date_end = explode(" ",$class['time_end']);
+        ?>
         <tr>        
-            <td><div class="day"> <?php echo $date_start[0]?></div></td>
+            <td><div class="day"> <?php if($write_day==1){echo $date_start[0];}?></div></td>
             <td>
                 <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
                     <table class=" w-100">
@@ -454,32 +449,21 @@ function get_classes_table($dbconn, $classes) {
                 </a>
             </td>
         </tr>
-    </div>
-    <?php
-    } ?>
-        </tbody>
-    </table>
+    </div>    
 <?php
 }
 
 
-function get_events_table($dbconn, $non_school_events ) {
-    echo "<h2>Nonschool events:</h2>";
-    ?>
-    <table class="table table-hover">
-    <tbody>
-    <?php    
-    foreach ($non_school_events as $event){
+function get_event_table($dbconn,$event,$write_day) {    
         ?>
         <div class="card" >
-        <?php 
-                $date_start = explode(" ",$event['time_start']);
-                $date_end = explode(" ",$event['time_end']);
-                $date = explode("-",$date_start[0]);
-
-                ?>
+        <?php             
+            $date_start = explode(" ",$event['time_start']);
+            $date_end = explode(" ",$event['time_end']);
+            $date = $date_start[0];            
+            ?>
             <tr>
-                <td><div class="day"> <?php echo $date[2].".".$date[1].".".$date[0]?></div></td>
+                <td><div class="day"> <?php if($write_day==1){echo $date;}?></div></td>
                 <td>
                     <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
 
@@ -504,13 +488,7 @@ function get_events_table($dbconn, $non_school_events ) {
                     </a>
                 </td>
             </tr>
-        </div>
-        <?php
-    } 
-    ?>
-    </tbody>
-   </table>
+        </div>    
     <?php
-
 }
 ?>
