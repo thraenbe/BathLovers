@@ -18,15 +18,14 @@ if (isset($_SESSION['user'])) {
     $all_events = sort_all_events($classes,$non_school_events);    
     // stayed old showing events
   
-?>    
-    <form method="post">      
-    <?php    
+    echo "<form method='post'>";   
     get_classes_table($dbconn, $classes); 
-    get_events_table($dbconn, $non_school_events); 
-?>
-    <input name="remove" type="submit", value="Remove selected">
-</form>
-<?php
+    get_events_table($dbconn, $non_school_events);
+    if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {
+       echo" <input name='remove' type='submit', value='Remove selected'>";
+    } 
+    echo "</form>";
+
     if(isset($_POST["remove"] ) && isset($_POST['class'])) {
         foreach ($_POST['class'] as $class) {
             delete_course($dbconn, $class, $user_id);
@@ -48,7 +47,6 @@ if (isset($_SESSION['user'])) {
 else {
     echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
     echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
-
 }
 ?>
 </section>

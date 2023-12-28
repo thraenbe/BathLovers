@@ -44,24 +44,7 @@
        
         <?php
         if(isset($_SESSION["user"])) {
-            if ($title === "Day" ||  $title === "Week") {
-                ?>
-                <strong>  Show events </strong>
-                <form method="post">
-                    <input type="checkbox" id="lectures" name="lectures" value="Lectures">
-                    <label for="school"> Classes</label><br>
-                    <input type="checkbox" id="other" name="other" value="Other">
-                    <label for="other"> Other events </label><br>                    
-                </form>                
-                
-            <?php
-            }
-            if (isset($_POST['logout'])){
-                session_unset();
-                	            
-            }
             ?>                
-        
         <form action="../login/login.php" method="post">
             <input name="logout" type="submit" id="odhlas" value="Logout" class="logoutbtn">                
         </form>
