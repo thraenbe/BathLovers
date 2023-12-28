@@ -37,6 +37,10 @@ label{
     height: 10%;
     background-color: #f8f9fa    
 }
+#oznam{
+    font-size: 16px;
+    font-weight: bold;
+}
 </style>
 </head>
 <?php
@@ -100,10 +104,10 @@ if (isset($_POST['changePasswordBtn'])){
                 $result = pg_query($dbconn,$sql);
                 if($result ){
                     $_POST = array();
-                    echo "<div id='oznam' style='color: grey;'>Password sucessfully changed :-> </div>";
+                    echo "<div id='oznam' style='color: green;'>Password sucessfully changed :-> </div>";
                 }                                                     
             } else{
-                echo "<div id='oznam' style='color: grey;'>Bad old password :-< </div>";
+                echo "<div id='oznam' style='color: red;'>Bad old password :-< </div>";
             }
         }            
     }        
@@ -111,3 +115,15 @@ if (isset($_POST['changePasswordBtn'])){
 ?>
 </section>
 <?php include('../templates/footer.php'); ?>    
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var notification = document.getElementById('oznam');    
+    // Show the notification
+    notification.style.display = 'block';
+
+    // Hide the notification after 10 seconds
+    setTimeout(function() {
+      notification.style.display = 'none';
+    }, 3000);
+  });
+</script>
