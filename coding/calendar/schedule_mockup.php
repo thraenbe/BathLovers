@@ -4,6 +4,14 @@
     border: 1px solid black;
     border-radius: 10px;
 }
+.week_switch{
+    text-align: center;
+}
+.free_time{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+}
 </style></head>
 <section>
 <!-- <img src="../images/ComeniusUniversity.png" alt="University"> -->
@@ -23,17 +31,18 @@ if (isset($_SESSION['user'])) {
     echo "<form method='post'>";
     ?>
     <input type="hidden" name="actual_week" value="<?php echo $actual_week; ?>">    
-    <input type="submit" name="left_click" value="<">
-    <div>
-        <?php
-        $start = explode("-",$generated_weeks[$actual_week]['startDate']); 
-        $end = explode("-",$generated_weeks[$actual_week]['endDate']);
-        echo "Week $start[2].$start[1].$start[0] - $end[2].$end[1].$end[0]";
-        ?>
-    </div>    
-    <input type="submit" name="right_click" value=">">
+    <div class="week_switch">
+    <input type="submit" name="left_click" value="<">        
     <?php
-    $written_days = [];    
+    $start = explode("-",$generated_weeks[$actual_week]['startDate']); 
+    $end = explode("-",$generated_weeks[$actual_week]['endDate']);
+    echo "Week $start[2].$start[1].$start[0] - $end[2].$end[1].$end[0]";
+    ?>    
+    <input type="submit" name="right_click" value=">">
+    </div>
+    <?php
+    $written_days = [];   
+    $sum_events = 0; 
     foreach ($all_events as $event){
         $write_day = 0;
         if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){
@@ -41,12 +50,14 @@ if (isset($_SESSION['user'])) {
             $written_days[]=explode(" ",$event['time_start'])[0];
         }
         if ($event['event_type']==1){
+            $sum_events++;
             get_event_table($dbconn, $event,$write_day);             
         } else {
             foreach($generated_weeks[$actual_week]['datesInWeek'] as $week){
                 $i = new DateTime($week);                                
                 if ($i->format('l') == explode(" ",$event['time_start'])[0]) {
                     if (check_free_days($week)){
+                        $sum_events++;
                         get_class_table($dbconn, $event,$write_day);              
                     }                    
                     break;
@@ -54,9 +65,11 @@ if (isset($_SESSION['user'])) {
             }                        
         }        
     }    
-    if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {
+    if ($sum_events>0) {
        echo" <input name='remove' type='submit', value='Remove selected'>";
-    } 
+    } else {
+        echo "<div class='free_time'> No events you've got free time :-D</div>";
+    }
     echo "</form>";
 
     if(isset($_POST["remove"] )) {

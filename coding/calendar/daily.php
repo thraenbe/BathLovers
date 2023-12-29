@@ -1,3 +1,17 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.day_switch{
+    text-align: center;
+}
+.free_time{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+}
+</style>
+</head>
 <?php
 session_start();
 include('../templates/header.php');
@@ -19,27 +33,31 @@ if (isset($_SESSION['user'])) {
     ?>
     <form method="post">
         <input type="hidden" name="actual_day" value="<?php echo $actual_day; ?>">    
+        <div class="day_switch">
         <input type="submit" name="left_click" value="<">
-        <div><?php echo "$date_range[$actual_day]"; ?></div>
-        <input type="submit" name="right_click" value=">">
         <?php
-        $written_days = [];
+        $date_array = explode("-",$date_range[$actual_day]);        
+        echo "$day_in_week $date_array[2].$date_array[1].$date_array[0]"; ?>
+        <input type="submit" name="right_click" value=">">
+        </div>
+        <?php
+        $sum_events = 0;        
         foreach ($all_events as $event){
             $write_day = 0;
-            if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){
-                $write_day = 1;                
-                $written_days[]=explode(" ",$event['time_start'])[0];
-            }
             if ($event['event_type']==1){            
+                $sum_events++;
                 get_event_table($dbconn, $event,$write_day);
             } else {
                 if (check_free_days($date_range[$actual_day])){
+                    $sum_events++;
                     get_class_table($dbconn, $event,$write_day); 
                 }                                
             }        
         }   
-        if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {
+        if ($sum_events>0) {
         echo" <input name='remove' type='submit', value='Remove selected'>";
+        } else {
+            echo "<div class='free_time'>No events you've got free time :-D</div>";
         }
         ?>
     </form>
