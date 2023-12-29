@@ -1,15 +1,21 @@
 <head><style>
-.add-btn{
-    background-color: #00BFFF;
-    border: 1px solid black;
-    border-radius: 10px;
-}
 .week_switch{
     text-align: center;
+    padding-bottom: 10px;
 }
 .free_time{
     padding-top: 5%;
     padding-bottom: 5%;
+    text-align: center;
+}
+.remove_butt{    
+    border-radius: 5px;
+    background-color: greenyellow;
+    font-size: larger;
+    font-weight: bolder;
+    margin-top: 2%;
+}
+.remove_div{    
     text-align: center;
 }
 </style></head>
@@ -66,7 +72,7 @@ if (isset($_SESSION['user'])) {
         }        
     }    
     if ($sum_events>0) {
-       echo" <input name='remove' type='submit', value='Remove selected'>";
+       echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
     } else {
         echo "<div class='free_time'> No events you've got free time :-D</div>";
     }

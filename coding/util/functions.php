@@ -1,3 +1,19 @@
+<head>
+    <style>
+        .card{
+            padding-top: 2%;
+        }
+        .day{            
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .title,.time,.remove,.cekbox,.day{
+            text-align: center;
+        }        
+    </style>
+</head>
 <?php
 date_default_timezone_set('Europe/Bratislava');
 function check_login_credintials($dbconn, $username, $password){
@@ -433,13 +449,11 @@ function get_class_table($dbconn, $class,$write_day) {
         $date_end = explode(" ",$class['time_end']);
         ?>
         <tr>        
-            <td>
-                <div class="day">
+            <td>                
                 <?php 
                 if($write_day==1){                    
-                    echo $date_start[0];
-                }?>
-                </div>
+                    echo "<div class='day'>$date_start[0]</div>";
+                }?>                
             </td>
             <td>
                 <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
@@ -454,11 +468,11 @@ function get_class_table($dbconn, $class,$write_day) {
                             <td> room: <?php echo get_room_name($dbconn,$class['rooms']);?></td>
                         </tr>
                         <tr>
-                            <td> <label for="course<?php echo $class['subject_id']; ?>"> Remove? </td>
+                            <td class="remove"> <label for="course<?php echo $class['subject_id']; ?>"> Remove? </td>
                             <td>  <a href= <?php echo $class['information_plan'] ?>>  Information plan</a></td>                            
                         </tr>
                         <tr>
-                            <td><input type="checkbox" id ="course<?php echo $class['subject_id']; ?>" name="class[]" value="<?php echo $class['subject_id']; ?>"></td>
+                            <td class="cekbox"><input type="checkbox" id ="course<?php echo $class['subject_id']; ?>" name="class[]" value="<?php echo $class['subject_id']; ?>"></td>
                         </tr>                        
                         </tbody>
                     </table>
@@ -494,10 +508,10 @@ function get_event_table($dbconn,$event,$write_day) {
                                 <td> <div class="category"> <?php echo $event['category'] ?></div> </td>
                             </tr>
                             <tr>
-                                <td> <label for="<?php echo $event['id'];?>"> Remove? </label></td>
+                                <td class="remove"> <label for="<?php echo $event['id'];?>"> Remove? </label></td>
                         </tr>
                             <tr>
-                            <td><input type="checkbox" name="nonevent[]" value="<?php echo $event['id']?>" id="<?php echo $event['id']?>"></td>       
+                            <td class="cekbox"><input type="checkbox" name="nonevent[]" value="<?php echo $event['id']?>" id="<?php echo $event['id']?>"></td>       
                             </tr>
                             </tbody>
                         </table>

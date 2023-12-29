@@ -4,10 +4,21 @@
 <style>
 .day_switch{
     text-align: center;
+    padding-bottom: 10px;
 }
 .free_time{
     padding-top: 5%;
     padding-bottom: 5%;
+    text-align: center;
+}
+.remove_butt{    
+    border-radius: 5px;
+    background-color: greenyellow;
+    font-size: larger;
+    font-weight: bolder;
+    margin-top: 2%;
+}
+.remove_div{    
     text-align: center;
 }
 </style>
@@ -55,7 +66,7 @@ if (isset($_SESSION['user'])) {
             }        
         }   
         if ($sum_events>0) {
-        echo" <input name='remove' type='submit', value='Remove selected'>";
+            echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
         } else {
             echo "<div class='free_time'>No events you've got free time :-D</div>";
         }
@@ -73,7 +84,7 @@ if (isset($_SESSION['user'])) {
         }        
         if (isset($_POST['nonevent'])){
             foreach ($_POST['nonevent'] as $event) {        
-                delete_nonschool_event($dbconn, $event);
+                delete_nonschool_event($dbconn, $event);                
                 echo "Succesfully deleted '$event'";
             }    
             echo "<meta http-equiv='refresh' content='0'>";
