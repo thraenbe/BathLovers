@@ -369,6 +369,16 @@ function check_time_conflict_non_school_event_vs_nonschool_event($new_non_sch_ev
     }
     return false;
 }
+function check_free_days($date){
+    $semester = [new DateTime("2023-09-19"),new DateTime("2023-12-15"),new DateTime("2024-02-19"),new DateTime("2024-05-17")];
+    $freedays = [new DateTime("2023-07-05"),new DateTime("2023-08-29"),new DateTime("2023-09-01"),new DateTime("2023-09-15"),new DateTime("2023-11-01"),new DateTime("2023-12-24"),new DateTime("2023-12-25"),new DateTime("2023-12-26"),new DateTime("2024-01-01"),new DateTime("2024-01-06"),new DateTime("2024-03-29"),new DateTime("2024-04-01"),new DateTime("2024-05-01"),new DateTime("2024-05-08"),new DateTime("2024-07-05"),new DateTime("2024-08-29"),new DateTime("2024-09-01"),new DateTime("2024-09-15")];
+    $date = new DateTime($date);
+    if ((($date >= $semester[0] and $date <= $semester[1]) or ($date >= $semester[2] and $date <= $semester[3])) and (!in_array($date,$freedays))){
+        return true;
+    } else {
+        return false;
+    }
+}
 // weekly view generate weeks
 function generateWeeks($start_date,$end_date) {
     $weeksArray = array();
@@ -415,8 +425,7 @@ function generateDays($start_date, $end_date) {
     return $date_range;
 }
 // weekly view
-
-function get_class_table($dbconn, $class,$write_day) {            
+function get_class_table($dbconn, $class,$write_day) {                
     ?>
     <div class="card">
     <?php 
@@ -424,7 +433,14 @@ function get_class_table($dbconn, $class,$write_day) {
         $date_end = explode(" ",$class['time_end']);
         ?>
         <tr>        
-            <td><div class="day"> <?php if($write_day==1){echo $date_start[0];}?></div></td>
+            <td>
+                <div class="day">
+                <?php 
+                if($write_day==1){                    
+                    echo $date_start[0];
+                }?>
+                </div>
+            </td>
             <td>
                 <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
                     <table class=" w-100">

@@ -30,10 +30,12 @@ if (isset($_SESSION['user'])) {
                 $write_day = 1;                
                 $written_days[]=explode(" ",$event['time_start'])[0];
             }
-            if ($event['event_type']==0){            
-                get_class_table($dbconn, $event,$write_day); 
-            } else {
+            if ($event['event_type']==1){            
                 get_event_table($dbconn, $event,$write_day);
+            } else {
+                if (check_free_days($date_range[$actual_day])){
+                    get_class_table($dbconn, $event,$write_day); 
+                }                                
             }        
         }   
         if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {

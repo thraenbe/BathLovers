@@ -33,17 +33,25 @@ if (isset($_SESSION['user'])) {
     </div>    
     <input type="submit" name="right_click" value=">">
     <?php
-    $written_days = [];
+    $written_days = [];    
     foreach ($all_events as $event){
         $write_day = 0;
         if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){
             $write_day = 1;                
             $written_days[]=explode(" ",$event['time_start'])[0];
         }
-        if ($event['event_type']==0){            
-            get_class_table($dbconn, $event,$write_day); 
+        if ($event['event_type']==1){
+            get_event_table($dbconn, $event,$write_day);             
         } else {
-            get_event_table($dbconn, $event,$write_day);
+            foreach($generated_weeks[$actual_week]['datesInWeek'] as $week){
+                $i = new DateTime($week);                                
+                if ($i->format('l') == explode(" ",$event['time_start'])[0]) {
+                    if (check_free_days($week)){
+                        get_class_table($dbconn, $event,$write_day);              
+                    }                    
+                    break;
+                }
+            }                        
         }        
     }    
     if (sizeof($classes) > 0 || sizeof($non_school_events) > 0) {
