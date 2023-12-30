@@ -469,7 +469,7 @@ function get_class_table($dbconn, $class,$write_day) {
                         </tr>
                         <tr>
                             <td class="remove"> <label for="course<?php echo $class['subject_id']; ?>"> Remove? </td>
-                            <td>  <a href= <?php echo $class['information_plan'] ?>>  Information plan</a></td>                            
+                            <td>  <a href= <?php echo $class['information_plan'] ?>>  Information plan (Faculty website)</a></td>                            
                         </tr>
                         <tr>
                             <td class="cekbox"><input type="checkbox" id ="course<?php echo $class['subject_id']; ?>" name="class[]" value="<?php echo $class['subject_id']; ?>"></td>
