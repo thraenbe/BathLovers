@@ -25,7 +25,7 @@
 if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
     $user_id = get_user_id($dbconn,$username);
-    $classes = get_registred_classes($dbconn,$user_id);    
+    $classes = get_registred_classes($dbconn,$user_id);
     $generated_weeks = generateWeeks('2023-05-29','2024-09-01');      
     $num_weeks = sizeof($generated_weeks);
     $actual_week = isset($_SESSION['actual_week']) ? $_SESSION['actual_week'] : (int) $num_weeks/2;    
@@ -47,23 +47,33 @@ if (isset($_SESSION['user'])) {
     <input type="submit" name="right_click" value=">">
     </div>
     <?php
-    $written_days = [];   
+    $written_days = [];        
     $sum_events = 0; 
     foreach ($all_events as $event){
-        $write_day = 0;
-        if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){
-            $write_day = 1;                
-            $written_days[]=explode(" ",$event['time_start'])[0];
-        }
+        $write_day = 0;      
         if ($event['event_type']==1){
             $sum_events++;
-            get_event_table($dbconn, $event,$write_day);             
+            if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){                                          
+                $write_day = 1;
+                $written_days[]=explode(" ",$event['time_start'])[0];
+            }
+            foreach($generated_weeks[$actual_week]['datesInWeek'] as $week){
+                $i = new DateTime($week);                                                
+                if ($i->format('l') == explode(" ",$event['time_start'])[0]) {
+                    get_event_table($dbconn, $event,$write_day,$week);             
+                    break;
+                }
+            }            
         } else {
             foreach($generated_weeks[$actual_week]['datesInWeek'] as $week){
                 $i = new DateTime($week);                                
                 if ($i->format('l') == explode(" ",$event['time_start'])[0]) {
                     if (check_free_days($week)){
                         $sum_events++;
+                        if (!in_array(explode(" ",$event['time_start'])[0],$written_days)){                                          
+                            $write_day = 1;
+                            $written_days[]=explode(" ",$event['time_start'])[0];
+                        }        
                         get_class_table($dbconn, $event,$write_day);              
                     }                    
                     break;

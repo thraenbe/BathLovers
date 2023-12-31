@@ -54,10 +54,10 @@ if (isset($_SESSION['user'])) {
         $user_id = get_user_id($dbconn, $_SESSION['user']);
         $classes = get_registred_classes($dbconn,$user_id);
         $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                         
-        $startDateTime = new DateTime($start_time);
+        $startDateTime = new DateTime($start_time);        
         $endDateTime = new DateTime($end_time);   
         $nonschool_event = ['time_start'=>$startDateTime->format('l')." ".explode(' ',$start_time)[1],'time_end'=>$endDateTime->format('l')." ".explode(' ',$end_time)[1]];
-        if (hasTimeConflict_Class_Class($nonschool_event, $classes)) {
+        if (check_free_days($date) && hasTimeConflict_Class_Class($nonschool_event, $classes)) {
             ?><div style="color:red; font-weight:bold"><?php echo 'Time conflict detected with classes';?></div><?php
         } else if (check_time_conflict_non_school_event_vs_nonschool_event(['time_start'=>$start_time,'time_end'=>$end_time],$non_school_events)){
             ?><div style="color:red; font-weight:bold"><?php echo 'Time conflict detected with nonschool event';?></div><?php

@@ -21,6 +21,11 @@
 .remove_div{    
     text-align: center;
 }
+.type_of_day{
+    text-align: center;
+    font-size: larger;
+    font-weight: bold;
+}
 </style>
 </head>
 <?php
@@ -52,12 +57,22 @@ if (isset($_SESSION['user'])) {
         <input type="submit" name="right_click" value=">">
         </div>
         <?php
+        $type_of_day1 = type_of_day(new DateTime($date_range[$actual_day]));    
+        if ($type_of_day1 == "celebration"){
+            echo "<div class='type_of_day'>celebration</div>";                    
+        } else if ($type_of_day1 == "holidays"){
+            echo "<div class='type_of_day'>holidays</div>";
+        } else if ($type_of_day1 == "weekend"){
+            echo "<div class='type_of_day'>weekend</div>";
+        } else if ($type_of_day1 == "exams"){
+            echo "<div class='type_of_day'>exam time</div>";
+        }
         $sum_events = 0;        
         foreach ($all_events as $event){
             $write_day = 0;
             if ($event['event_type']==1){            
                 $sum_events++;
-                get_event_table($dbconn, $event,$write_day);
+                get_event_table($dbconn, $event,$write_day,$date_range[$actual_day]);
             } else {
                 if (check_free_days($date_range[$actual_day])){
                     $sum_events++;
@@ -69,9 +84,9 @@ if (isset($_SESSION['user'])) {
             echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
         } else {
             echo "<div class='free_time'>No events you've got free time :-D</div>";
-        }
+        }        
         ?>
-    </form>
+    </form>    
     <?php
     // Inside the form handling block
     if(isset($_POST["remove"] )) {

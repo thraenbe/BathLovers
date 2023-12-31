@@ -11,7 +11,12 @@
         }
         .title,.time,.remove,.cekbox,.day{
             text-align: center;
-        }        
+        }  
+        .type_of_day{
+            text-align: center;
+            font-size: larger;
+            font-weight: bold;
+        }      
     </style>
 </head>
 <?php
@@ -385,6 +390,22 @@ function check_time_conflict_non_school_event_vs_nonschool_event($new_non_sch_ev
     }
     return false;
 }
+function type_of_day($date){
+    $exam_moments = [new DateTime("2023-05-29"),new DateTime("2023-06-30"),new DateTime("2024-01-02"),new DateTime("2024-02-16"),new DateTime("2024-05-19"),new DateTime("2024-06-30")];
+    $holidays = [new DateTime("2023-07-01"),new DateTime("2023-09-17"),new DateTime("2024-07-01"),new DateTime("2024-09-17")];
+    $freedays = [new DateTime("2023-07-05"),new DateTime("2023-08-29"),new DateTime("2023-09-01"),new DateTime("2023-09-15"),new DateTime("2023-11-01"),new DateTime("2023-12-24"),new DateTime("2023-12-25"),new DateTime("2023-12-26"),new DateTime("2024-01-01"),new DateTime("2024-01-06"),new DateTime("2024-03-29"),new DateTime("2024-04-01"),new DateTime("2024-05-01"),new DateTime("2024-05-08"),new DateTime("2024-07-05"),new DateTime("2024-08-29"),new DateTime("2024-09-01"),new DateTime("2024-09-15")];    
+    if (in_array($date,$freedays)){
+        return "celebration";
+    } else if (($date>=$holidays[0] && $date<=$holidays[1]) || ($date>=$holidays[2] && $date<=$holidays[3])){
+        return "holidays";
+    } else if (($date>=$exam_moments[0] && $date<=$exam_moments[1]) || ($date>=$exam_moments[2] && $date<=$exam_moments[3]) || ($date>=$exam_moments[4] && $date<=$exam_moments[5])){
+        return "exams";
+    } else if ($date->format('l')=="Saturday" or $date->format('l')=="Sunday"){
+        return "weekend";
+    } else{
+        return "nothing";
+    }
+}
 function check_free_days($date){
     $semester = [new DateTime("2023-09-19"),new DateTime("2023-12-15"),new DateTime("2024-02-19"),new DateTime("2024-05-17")];
     $freedays = [new DateTime("2023-07-05"),new DateTime("2023-08-29"),new DateTime("2023-09-01"),new DateTime("2023-09-15"),new DateTime("2023-11-01"),new DateTime("2023-12-24"),new DateTime("2023-12-25"),new DateTime("2023-12-26"),new DateTime("2024-01-01"),new DateTime("2024-01-06"),new DateTime("2024-03-29"),new DateTime("2024-04-01"),new DateTime("2024-05-01"),new DateTime("2024-05-08"),new DateTime("2024-07-05"),new DateTime("2024-08-29"),new DateTime("2024-09-01"),new DateTime("2024-09-15")];
@@ -450,12 +471,14 @@ function get_class_table($dbconn, $class,$write_day) {
         ?>
         <tr>        
             <td>                
-                <?php 
+                <?php                 
                 if($write_day==1){                    
-                    echo "<div class='day'>$date_start[0]</div>";
-                }?>                
+                    echo "<div class='day'>$date_start[0]</div>";                   
+                } 
+                ?>                
             </td>
             <td>
+                <!-- farbu robi -->
                 <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
                     <table class=" w-100">
                         <tbody>
@@ -484,7 +507,7 @@ function get_class_table($dbconn, $class,$write_day) {
 }
 
 
-function get_event_table($dbconn,$event,$write_day) {    
+function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {    
         ?>
         <div class="card" >
         <?php             
@@ -493,7 +516,22 @@ function get_event_table($dbconn,$event,$write_day) {
             $date = $date_start[0];            
             ?>
             <tr>
-                <td><div class="day"> <?php if($write_day==1){echo $date;}?></div></td>
+                <td>
+                <?php                 
+                if($write_day==1){
+                    echo "<div class='day'> $date </div>";                       
+                    $type_of_day1 = type_of_day(new DateTime($date_y_M_D));                    
+                    if ($type_of_day1 == "celebration"){
+                        echo "<div class='type_of_day'>celebration</div>";                    
+                    } else if ($type_of_day1 == "holidays"){
+                        echo "<div class='type_of_day'>holidays</div>";
+                    } else if ($type_of_day1 == "weekend"){
+                        echo "<div class='type_of_day'>weekend</div>";
+                    } else if ($type_of_day1 == "exams"){
+                        echo "<div class='type_of_day'>exam time</div>";
+                    }                 
+                }   
+                ?></td>
                 <td>
                     <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
 

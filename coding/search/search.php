@@ -100,10 +100,16 @@ get_header('Search');
                 if (isset($_POST[$buttonName])) {                    
                     $new_event = get_Subject($dbconn,$i);
                     $classes = get_registred_classes($dbconn,$user_id);
-                    $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');                                        
+                    $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');
+                    $non_school_events_all = [];
+                    foreach ($non_school_events as $nonsch_event){
+                        if (check_free_days($nonsch_event['time_start'])){
+                            $non_school_events_all[] = $nonsch_event;
+                        }
+                    }
                     if (hasTimeConflict_Class_Class($new_event, $classes)) {
                         echo "<p id='notification' class = 'bad_notify'> <strong>× Time conflict detected with classes</strong> </p>";
-                    } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events))){
+                    } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events_all))){
                         echo "<p id='notification' class = 'bad_notify button'> <strong>× Time conflict detected with nonschool event</strong> </p>";
                     } else {
                         add_course($dbconn, $i, $user_id);
