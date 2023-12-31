@@ -74,7 +74,11 @@ if (isset($_SESSION['user'])) {
     if ($sum_events>0) {
        echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
     } else {
-        echo "<div class='free_time'> No events you've got free time :-D</div>";
+        echo "<div class='free_time'>";
+        echo "<p> No events you've got free time :-D </p>";
+        echo "<p> You can <a href='../calendar/add_to_schedule.php'>  add extra-curricular activities </a> 
+        to your schedule. </p>";
+        echo "</div>";
     }
     echo "</form>";
 

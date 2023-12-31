@@ -24,7 +24,11 @@ elseif (isset($_POST['logout'])) {
 if(isset($_SESSION['user'])) {
 ?>
 <p>Welcome <strong><?php echo $_SESSION['user'] ?></strong>.</p>
-<p>  Go to <a href="../setting/settings.php"> Settings </a> 
+<p>  You can view your  <a href="../calendar/daily.php"> daily </a> 
+or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
+<p> To create your schedule you can <a href="../search/search.php"> search for classes </a> or
+<a href="../calendar/add_to_schedule.php"> Add extra-curricular activities </a>. </p>
+<p>  To change your password, visit <a href="../setting/settings.php"> settings </a>. </p>
 <form method="post"> 
   <p> 
     <input name="logout" type="submit" id="odhlas" value="Logout"> 

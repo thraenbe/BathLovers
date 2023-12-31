@@ -32,6 +32,9 @@
     font-size: 36px;
     margin-left: 50px;
 }
+.sidenav form {
+    text-align: center;
+}
 </style>
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
