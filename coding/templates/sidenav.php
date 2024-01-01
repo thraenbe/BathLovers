@@ -1,5 +1,5 @@
 <style>
-    .sidenav {
+.sidenav {
     width: 0;
     position: fixed;
     z-index: 1;
@@ -42,7 +42,7 @@
         <a href="../calendar/daily.php">Day</a>
         <a href="../calendar/weekly.php">Week</a>
         <a href="../calendar/add_to_schedule.php" >Add Activity</a>
-        <a href="../images/roomplan.jpg"> Room plan </a>
+        <a href="../courses/roomplan.php"> Room plan </a>
         <a href="../search/search.php"> Search classes </a>
        
         <?php

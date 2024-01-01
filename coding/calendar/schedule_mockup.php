@@ -82,7 +82,11 @@ if (isset($_SESSION['user'])) {
         }        
     }    
     if ($sum_events>0) {
-       echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
+       echo "<div class='remove_div'>";
+       echo "<input class ='remove_butt' name='remove' type='submit', value='Remove selected'>";
+       echo "<p> <a href='../courses/roomplan.php'> Room plan </a> </p>";
+       echo "</div>";
+
     } else {
         echo "<div class='free_time'>";
         echo "<p> No events you've got free time :-D </p>";
