@@ -478,7 +478,6 @@ function get_class_table($dbconn, $class,$write_day) {
                 ?>                
             </td>
             <td>
-                <!-- farbu robi -->
                 <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
                     <table class=" w-100">
                         <tbody>
@@ -533,7 +532,7 @@ function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {
                 }   
                 ?></td>
                 <td>
-                    <a type="button" class="btn btn-info btn-lg btn-block w-100"  >
+                    <a type="button" class="btn btn-warning btn-lg btn-block w-100"  >
 
                         <table class=" w-100">
                             <tbody>
