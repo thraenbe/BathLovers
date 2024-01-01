@@ -86,6 +86,7 @@ if (isset($_SESSION['user'])) {
     } else {
         echo "<div class='free_time'>";
         echo "<p> No events you've got free time :-D </p>";
+        echo "<p>You can add  <a href='../search/search.php'>course</a> to your schedule</p>";
         echo "<p> You can <a href='../calendar/add_to_schedule.php'>  add extra-curricular activities </a> 
         to your schedule. </p>";
         echo "</div>";

@@ -1,4 +1,4 @@
-drop table registred_class,rooms,subjects,student,other_events;
+drop table registred_class,rooms,subjects,student,other_events,recomended_subjects;
 CREATE TABLE rooms (
   id SERIAL PRIMARY KEY ,
   name varchar(30)
@@ -38,3 +38,9 @@ CREATE TABLE other_events (
     details varchar(30),
     FOREIGN KEY (user_name) references student(id)
 );
+CREATE TABLE recomended_subjects (
+    user_id int,
+    subject_id int,
+    FOREIGN KEY (user_id) references student(id),
+    FOREIGN KEY (subject_id) references subjects(id)
+)

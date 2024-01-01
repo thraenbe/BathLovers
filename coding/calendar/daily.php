@@ -11,6 +11,9 @@
     padding-bottom: 5%;
     text-align: center;
 }
+.free_time_link{
+    text-align: center;
+}
 .remove_butt{    
     border-radius: 5px;
     background-color: greenyellow;
@@ -83,7 +86,13 @@ if (isset($_SESSION['user'])) {
         if ($sum_events>0) {
             echo" <div class='remove_div'><input class = 'remove_butt' name='remove' type='submit', value='Remove selected'></div>";
         } else {
-            echo "<div class='free_time'>No events you've got free time :-D</div>";
+            ?>
+            <div class='free_time'>
+                <p>No events you've got free time :-D</p>
+                <p>You can add  <a href="../search/search.php">course</a> to your schedule</p>
+                <p>You can add <a href="../calendar/add_to_schedule.php">extra-curricular activities</a> to your schedule.</p>
+            </div>
+            <?php
         }        
         ?>
     </form>    
@@ -126,6 +135,5 @@ if (isset($_SESSION['user'])) {
     echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
     echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
 }
-
 include('../templates/footer.php');
 ?>

@@ -300,6 +300,21 @@ function get_room_name ($dbconn,$roomid){
     }    
 }
 
+function get_recomended_subjects ($dbconn,$user_id){
+    $sql = "SELECT * FROM recomended_subjects r_s
+    JOIN subjects s on r_s.subject_id = s.id
+    WHERE r_s.user_id = '$user_id';";
+    $result = pg_query($dbconn, $sql);
+    $search_results = [];
+    if (!$result) {
+        return [];
+    } else {
+        while ($row = pg_fetch_assoc($result)) {
+            $search_results[] = $row;
+        }
+        return $search_results;
+    }
+}
 // resolving conflicts part iteration through all events 
 // !!!!!!!events are type of class
 function hasTimeConflict_Class_Class($newEvent, $existingEvents) {

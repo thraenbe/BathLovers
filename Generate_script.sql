@@ -49,11 +49,26 @@ VALUES
     ('Rusky jazyk C','Russian language E','Victoria','https://fmph.uniba.sk/microsites/kjp/katedra-jazykovej-pripravy/mgr-viktoria-mirsalova/rusky-jazyk/','Monday 18:10','Monday 19:40'),
     ('Florbal','Floorball','Mokus','https://ktvs.fmph.uniba.sk/','Wednesday 13:30','Wednesday 14:30'),
     ('OS programovanie P','OS programming L','Siska','https://dai.fmph.uniba.sk/w/Course:OsProg/sk','Tuesday 09:50','Tuesday 11:20'),
-    ('OS programovanie C','OS programming E','Siska','https://dai.fmph.uniba.sk/w/Course:OsProg/sk','Wednesday 08:10','Wednesday 09:40');
---     ('Matematika', 'Math', 'John Smith', 'https://www.mathplan.com', 'Monday 08:00', 'Monday 10:30'),
---     ('Fyzika', 'Physics', 'Jane Doe', 'https://www.physicsplan.com', 'Tuesday 10:15', 'Tuesday 12:45'),
---     ('Chémia', 'Chemistry', 'Michael Johnson', 'https://www.chemistryplan.com', 'Wednesday 13:30', 'Wednesday 16:00'),
---     ('Slovenčina', 'Slovak Language', 'Emily Wilson', 'https://www.slovaklanguageplan.com', 'Thursday 15:45', 'Thursday 18:15'),
---     ('Dejepis', 'History', 'David Brown', 'https://www.historyplan.com', 'Friday 08:30', 'Friday 11:00'),
---     ('SK','SR','koulek','www.sme.sk','Tuesday 11:00','Tuesday 13:30'),
---     ('EN','EN','kodulek','www.sme.sk','Tuesday 09:00','Tuesday 10:30');
+    ('OS programovanie C','OS programming E','Siska','https://dai.fmph.uniba.sk/w/Course:OsProg/sk','Wednesday 08:10','Wednesday 09:40'),
+    ('Matematika', 'Math', 'John Smith', 'https://www.mathplan.com', 'Monday 08:00', 'Monday 10:30'),
+    ('Fyzika', 'Physics', 'Jane Doe', 'https://www.physicsplan.com', 'Tuesday 10:15', 'Tuesday 12:45'),
+    ('Chémia', 'Chemistry', 'Michael Johnson', 'https://www.chemistryplan.com', 'Wednesday 13:30', 'Wednesday 16:00'),
+    ('Slovenčina', 'Slovak Language', 'Emily Wilson', 'https://www.slovaklanguageplan.com', 'Thursday 15:45', 'Thursday 18:15'),
+    ('Dejepis', 'History', 'David Brown', 'https://www.historyplan.com', 'Friday 08:30', 'Friday 11:00'),
+    ('SK','SR','koulek','www.sme.sk','Tuesday 11:00','Tuesday 13:30'),
+    ('EN','EN','kodulek','www.sme.sk','Tuesday 09:00','Tuesday 10:30');
+
+-- generate recomended subjects
+INSERT INTO recomended_subjects (user_id, subject_id)
+SELECT
+  s.id AS user_id,
+  subj.id AS subject_id
+FROM
+  student s
+  CROSS JOIN (
+    SELECT id
+    FROM subjects
+    ORDER BY RANDOM()
+    LIMIT 3
+  ) subj
+ON CONFLICT DO NOTHING;

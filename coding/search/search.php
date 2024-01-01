@@ -46,7 +46,10 @@ margin-top: 10px;
     color: white;
     background-color: green;
 }
-
+.recomend{
+    font-size: 16;
+    font-style: italic;    
+}
 </style>
 </head>
 <?php
@@ -69,8 +72,14 @@ get_header('Search');
             <div class="searchtool">
             <input id="course" name="course" class="input" placeholder="Search...">
             <input id="Search" type="submit" name="Search" value="Search">
-            </div>
+            </div>                        
+            <h3>Recomended_subjects</h3>
             <?php
+            foreach (get_recomended_subjects($dbconn,$user_id) as $recom_course){
+                ?>
+                <div class="recomend"><?php echo "Course: ".$recom_course['name_en']."  on ".$recom_course['time_start']."-".explode(" ",$recom_course['time_end'])[1]?></div>
+                <?php                
+            }
             if (isset($_POST['Search'])) {
                 $searchtext = $_POST['course'];
                 $_SESSION['searchtext']=$searchtext;
@@ -123,7 +132,7 @@ get_header('Search');
                         <div class="title"><?php echo $row['name_en'] ?></div>
                         <div class="start"><?php echo $row['time_start'] ?></div>
                         <div class="end"><?php echo $row['time_end'] ?></div>
-                        <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
+                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>                                                
                         <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
                         <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
