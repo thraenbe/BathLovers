@@ -18,6 +18,12 @@
 .remove_div{    
     text-align: center;
 }
+table a {
+    color: #ff0000;
+}
+table a:hover {
+    color:#3333cc;
+}
 </style></head>
 <section>
 <!-- <img src="../images/ComeniusUniversity.png" alt="University"> -->
