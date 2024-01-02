@@ -48,7 +48,18 @@ margin-top: 10px;
 }
 .recomend{
     font-size: 16;
-    font-style: italic;    
+    font-style: italic;  
+    padding-bottom: 10px;  
+}
+.course_link{
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+}
+.course_link:hover{
+    font-size: 16px;
+    color: blue;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -95,7 +106,8 @@ get_header('Search');
                         <div class="day"><?php echo $start[0] ?></div>
                         <div class="start">Start: <?php echo $start[1] ?></div>
                         <div class="end">End: <?php echo $end[1] ?></div>
-                        <div class="end">Teacher: <?php echo $row['teacher'] ?></div>
+                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
+                        <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
                         ?>
@@ -132,7 +144,8 @@ get_header('Search');
                         <div class="title"><?php echo $row['name_en'] ?></div>
                         <div class="start"><?php echo $row['time_start'] ?></div>
                         <div class="end"><?php echo $row['time_end'] ?></div>
-                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>                                                
+                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
+                        <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
                         <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
                         <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>

@@ -39,7 +39,7 @@
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <h4> My Schedule </h4>
-        <a href="../calendar/daily.php">Daily schedulue</a>
+        <a href="../calendar/daily.php">Daily schedule</a>
         <a href="../calendar/weekly.php">Weekly schedule</a>
         <a href="../calendar/add_to_schedule.php" >Add activity</a>
         <a href="../courses/roomplan.php"> Room plan </a>
