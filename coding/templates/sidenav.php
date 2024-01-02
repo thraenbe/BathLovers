@@ -39,12 +39,11 @@
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <h4> My Schedule </h4>
-        <a href="../calendar/daily.php">Day</a>
-        <a href="../calendar/weekly.php">Week</a>
-        <a href="../calendar/add_to_schedule.php" >Add Activity</a>
+        <a href="../calendar/daily.php">Daily schedulue</a>
+        <a href="../calendar/weekly.php">Weekly schedule</a>
+        <a href="../calendar/add_to_schedule.php" >Add activity</a>
         <a href="../courses/roomplan.php"> Room plan </a>
         <a href="../search/search.php"> Search classes </a>
-       
         <?php
         if(isset($_SESSION["user"])) {
             ?>                
@@ -52,11 +51,8 @@
             <input name="logout" type="submit" id="odhlas" value="Logout" class="logoutbtn">                
         </form>
         <?php
-         
         }
-        
         ?>
-        
 </div>
 <script>
 function openNav() {

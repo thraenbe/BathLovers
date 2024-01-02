@@ -36,7 +36,7 @@ session_start();
 include('../templates/header.php');
 include('../util/db.php');
 include('../util/functions.php');
-get_header('Day');
+get_header('Daily schedule');
 if (isset($_SESSION['user'])) {
     $username = $_SESSION['user'];
     $user_id = get_user_id($dbconn,$username);
@@ -62,13 +62,13 @@ if (isset($_SESSION['user'])) {
         <?php
         $type_of_day1 = type_of_day(new DateTime($date_range[$actual_day]));    
         if ($type_of_day1 == "celebration"){
-            echo "<div class='type_of_day'>celebration</div>";                    
+            echo "<div class='type_of_day'>Celebration</div>";                    
         } else if ($type_of_day1 == "holidays"){
-            echo "<div class='type_of_day'>holidays</div>";
+            echo "<div class='type_of_day'>Holidays</div>";
         } else if ($type_of_day1 == "weekend"){
-            echo "<div class='type_of_day'>weekend</div>";
+            echo "<div class='type_of_day'>Weekend</div>";
         } else if ($type_of_day1 == "exams"){
-            echo "<div class='type_of_day'>exam time</div>";
+            echo "<div class='type_of_day'>Exam season</div>";
         }
         $sum_events = 0;        
         foreach ($all_events as $event){

@@ -3,7 +3,7 @@ session_start();
 include('../templates/header.php');
 include('../util/db.php');
 include('../util/functions.php');
-get_header('Add to schedule');
+get_header('Add activity to schedule');
 ?>
 <section>
 <?php
