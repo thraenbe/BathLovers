@@ -13,8 +13,10 @@ margin: auto;
 }
 
 img {
-height: auto; 
-width: auto;
+    max-width: 100%; 
+    max-height: 100%; 
+    display: block; 
+    margin: auto; 
 }
 
 
