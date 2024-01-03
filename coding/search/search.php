@@ -13,8 +13,7 @@ margin-top: 10px;
 .center{
     border: 3px solid #ccc;
     border-radius: 20px;    
-    margin: auto;    
-    width: 35%;
+    margin: auto;        
     padding: 10px; 
     background-color: #00BFFF;   
 }

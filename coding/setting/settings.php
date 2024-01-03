@@ -33,7 +33,7 @@ label{
 #changePasswordBtn{
     border: 1px solid #ccc;
     border-radius: 10px;
-    width:15%;
+    /* width:15%; */
     height: 10%;
     background-color: #f8f9fa    
 }
