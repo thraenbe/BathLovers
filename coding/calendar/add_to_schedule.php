@@ -1,3 +1,17 @@
+<style>
+    .logo, .formular,p,div{
+        text-align: center;
+    }    
+    .fields{
+        padding-bottom: 10px;
+    }
+    label{
+        font-weight: bold;
+    }
+    input,textarea{
+        border-radius: 10px;
+    }
+</style>
 <?php
 session_start();
 include('../templates/header.php');
@@ -9,27 +23,38 @@ get_header('Add activity to schedule');
 <?php
 if (isset($_SESSION['user'])) {
 ?>
-<form method="post">
-    <label for="eventName"> Event name</label>
-    <input name="eventName"type="text" size="30" maxlength="30" id=eventName><br>
-    <label for="date">Date</label>
-    <input type="date" id="date" name="date"> <br>
-    <label for="start">Start time:</label>
-    <input type="time" id="start" name="start"> <br>
-    <label for="end">End time:</label>
-    <input type="time" id="end" name="end"> <br>
-    <label for="tag"> Tag </label>
-    <select name="tag" id="tag">
-        <option value="work" selected>Work </option>
-        <option value="sport" >Sport </option>
-        <option value="dining" >Dining </option>
-        <option value="other">Other </option>
-    </select> <br>
-   
-
-    <label for="description"> Description</label>
-    <textarea id="description" placeholder="Enter description..." name="description" rows="2" cols="20">
-    </textarea> <br>
+<form method="post" class="formular">
+    <div class="fields">
+        <label for="eventName"> Event name</label>
+        <input name="eventName"type="text" size="30" maxlength="30" id=eventName><br>
+    </div>
+    <div class="fields">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date"> <br>
+    </div>
+    <div class="fields">
+        <label for="start">Start time:</label>
+        <input type="time" id="start" name="start"> <br>
+    </div>
+    <div class="fields">
+        <label for="end">End time:</label>
+        <input type="time" id="end" name="end"> <br>
+    </div>
+    <div class="fields">
+        <label for="tag"> Tag </label>
+        <select name="tag" id="tag">
+            <option value="work" selected>Work </option>
+            <option value="sport" >Sport </option>
+            <option value="dining" >Dining </option>
+            <option value="other">Other </option>
+        </select> <br>
+    </div>
+    <div class="fields">
+        <label for="description"> Description</label>
+        <textarea id="description" placeholder="Enter description..." name="description" rows="2" cols="20">
+        </textarea> 
+    </div>
+    <br>
     <input name="add" type="submit" value="Add to schedule">
 
 
@@ -70,8 +95,8 @@ if (isset($_SESSION['user'])) {
     }
 }
 else {
-    echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
-    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
+    echo "<div class='logo'><img src='../images/ComeniusUniversity.png' alt='University'>";
+    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p> </div>";
     
 }
 ?>

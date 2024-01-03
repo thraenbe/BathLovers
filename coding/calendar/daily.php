@@ -21,7 +21,7 @@
     font-weight: bolder;
     margin-top: 2%;
 }
-.remove_div{    
+.remove_div, .logo{    
     text-align: center;
 }
 .type_of_day{
@@ -132,8 +132,8 @@ if (isset($_SESSION['user'])) {
         echo "<meta http-equiv='refresh' content='0'>";
     }
 } else {
-    echo "<img src='../images/ComeniusUniversity.png' alt='University'>";
-    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p>";
+    echo "<div class='logo'><img src='../images/ComeniusUniversity.png' alt='University'>";
+    echo "<p> You are not logged in. Please go to <a href='../login/login.php'> Login page </a> </p></div>";
 }
 include('../templates/footer.php');
 ?>

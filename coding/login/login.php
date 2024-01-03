@@ -1,3 +1,20 @@
+<style>
+.logo, .formular{
+  text-align: center;
+}
+.fields{
+  padding-bottom: 10px;
+}
+input{
+  border-radius: 10px;
+}
+label{
+  font-weight: bold;
+}
+p{
+  text-align: center;
+}
+</style>
 <?php
 session_start();
 include('../templates/header.php');
@@ -7,7 +24,7 @@ get_header('Login');
 ?>
 
 <section>
-    <img src="../images/ComeniusUniversity.png" alt="University">
+    <div class="logo"><img src="../images/ComeniusUniversity.png" alt="University"></div>
 
 <?php
 if (isset($_POST['username']) && isset ( $_POST['password']) && 
@@ -38,13 +55,17 @@ or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
 <?php
 } else {
 ?>
-    <form method="post">
+    <form method="post" class="formular">
+      <div class="fields">
         <label for="username"> Username </label>
         <input name="username" type="text" size="30" maxlenght="30" id="username" 
         value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>"><br>
+      </div>        
+      <div class="fields">
         <label for="password">Password </label>
         <input name="password" type="password" size="30" maxlenght="30" id="password">
-        <p>
+      </div>
+      <p>
 			<input name="submit" type="submit" id="submit" value="Login">
 		</p>
 	</form>
