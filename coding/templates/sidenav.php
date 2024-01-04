@@ -33,7 +33,10 @@
     margin-left: 50px;
 }
 .sidenav form {
-    text-align: center;
+    text-align: center;    
+}
+input{
+    border-radius: 10px;
 }
 </style>
 <div id="mySidenav" class="sidenav">
