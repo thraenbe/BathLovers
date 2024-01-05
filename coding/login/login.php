@@ -28,17 +28,11 @@ h1 {
 </style>
 </head>
 <body>
-<div class="logo"><img src="../images/ComeniusUniversity.png" alt="University"></div>
-<header>
-		<h1>MY CLASS SCHEDULE</h1>
-	</header>
-  
+
 <?php
 session_start();
-//include('../templates/header.php');
 include('../util/db.php');
 include('../util/functions.php');
-//get_header('Login');
 ?>
 
 <section>
@@ -56,6 +50,10 @@ elseif (isset($_POST['logout'])) {
 }
 
 if(isset($_SESSION['user'])) {
+  include('../templates/header.php');
+  get_header("MY CLASS SCHEDULE");
+
+
 ?>
 <p>Welcome <strong><?php echo $_SESSION['user'] ?></strong>.</p>
 <p>  You can view your  <a href="../calendar/daily.php"> daily </a> 
@@ -70,8 +68,13 @@ or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
 </form>
 
 <?php
+include('../templates/footer.php');
 } else {
 ?>
+<div class="logo"><img src="../images/ComeniusUniversity.png" alt="University"></div>
+<header>
+		<h1>MY CLASS SCHEDULE</h1>
+	</header>
     <form method="post" class="formular">
       <div class="fields">
         <label for="username"> Username </label>
@@ -88,18 +91,13 @@ or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
 	</form>
 <?php
   if(isset($_POST['submit']) && !check_login_credintials($dbconn, $_POST['username'], $_POST['password'])){    
-    echo "<div style='color:red; font-weight:bold; text-align:center'>Incorrect login or password. Please retry</div>";
+    echo "<div style='color:red; font-weight:bold; text-align:center'>Incorrect login or password. Please try again</div>";
   }
 }
-
 
 ?>
 </section>
 </body>
 </html>
-<?php
-//include('../templates/footer.php');
-?>
-
 
 
