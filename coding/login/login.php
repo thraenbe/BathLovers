@@ -70,7 +70,9 @@ or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
 		</p>
 	</form>
 <?php
-
+  if(isset($_POST['submit']) && !check_login_credintials($dbconn, $_POST['username'], $_POST['password'])){    
+    echo "<div style='color:red; font-weight:bold; text-align:center'>Incorrect login or password. Please retry</div>";
+  }
 }
 
 
