@@ -110,7 +110,7 @@ get_header('Search');
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
                         ?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER CLASS" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
             <?php                                        
                 }
@@ -146,7 +146,7 @@ get_header('Search');
                         <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
                         <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
                         <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="REGISTER CLASS" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
                     <?php
                     }
@@ -172,7 +172,6 @@ include('../templates/footer.php');
     document.getElementById('course').focus();
     // Show the notification
     notification.style.display = 'block';
-
     // Hide the notification after 10 seconds
     setTimeout(function() {
       notification.style.display = 'none';
