@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo "Login"; ?></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <style>
 .logo, .formular{
   text-align: center;
@@ -14,17 +21,27 @@ label{
 p{
   text-align: center;
 }
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
 </style>
+</head>
+<body>
+<div class="logo"><img src="../images/ComeniusUniversity.png" alt="University"></div>
+<header>
+		<h1>MY CLASS SCHEDULE</h1>
+	</header>
+  
 <?php
 session_start();
-include('../templates/header.php');
+//include('../templates/header.php');
 include('../util/db.php');
 include('../util/functions.php');
-get_header('Login');
+//get_header('Login');
 ?>
 
 <section>
-    <div class="logo"><img src="../images/ComeniusUniversity.png" alt="University"></div>
 
 <?php
 if (isset($_POST['username']) && isset ( $_POST['password']) && 
@@ -78,9 +95,11 @@ or <a href="../calendar/weekly.php"> weekly </a> schedules. </p>
 
 ?>
 </section>
-
+</body>
+</html>
 <?php
-include('../templates/footer.php');
+//include('../templates/footer.php');
 ?>
+
 
 
