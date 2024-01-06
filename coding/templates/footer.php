@@ -1,4 +1,8 @@
-<nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary">
+<h3 class='text-white'>.
+</h3> 
+<h3 class='text-white'>.
+</h3> 
+    <nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="col-sm-6 btn btn-light navbar-brand" href="../calendar/weekly.php">
                 <img src="../icons/icons/tabbar/calendar.png" alt="Logo" class="d-inline-block align-text-top">
