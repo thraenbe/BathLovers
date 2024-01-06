@@ -16,18 +16,13 @@
 }
 .remove_butt{    
     border-radius: 5px;
-    background-color: greenyellow;
+    background-color: #4D6EFF;
     font-size: larger;
     font-weight: bolder;
     margin-top: 2%;
 }
 .remove_div, .logo{    
     text-align: center;
-}
-.type_of_day{
-    text-align: center;
-    font-size: larger;
-    font-weight: bold;
 }
 #date{
     border: none;
@@ -70,13 +65,13 @@ if (isset($_SESSION['user'])) {
         <?php
         $type_of_day1 = type_of_day(new DateTime($date_range[$actual_day]));    
         if ($type_of_day1 == "celebration"){
-            echo "<div class='type_of_day'>Celebration</div>";                    
+            echo "<div class='type_of_day' style='font-size:40px'>Celebration</div>";                    
         } else if ($type_of_day1 == "holidays"){
-            echo "<div class='type_of_day'>Holidays</div>";
+            echo "<div class='type_of_day' style='font-size:40px'>Holidays</div>";
         } else if ($type_of_day1 == "weekend"){
-            echo "<div class='type_of_day'>Weekend</div>";
+            echo "<div class='type_of_day' style='font-size:40px'>Weekend</div>";
         } else if ($type_of_day1 == "exams"){
-            echo "<div class='type_of_day'>Exam season</div>";
+            echo "<div class='type_of_day' style='font-size:40px'>Exam season</div>";            
         }
         $sum_events = 0;        
         foreach ($all_events as $event){

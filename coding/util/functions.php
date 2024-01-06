@@ -6,7 +6,7 @@
         .day{            
             padding-top: 10px;
             padding-bottom: 10px;
-            font-size: 26px;
+            font-size: 40px;
             font-weight: bold;
         }
         .title,.time,.remove,.cekbox,.day{
@@ -493,7 +493,7 @@ function get_class_table($dbconn, $class,$write_day) {
                 ?>                
             </td>
             <td>
-                <button type="button" class="btn btn-info btn-lg btn-block w-100"  >                                                            
+                <button type="button" class="btn btn-info btn-lg btn-block w-100" style="background-color: #CFECFF;">
                     <table class=" w-100">
                         <tbody>
                         <tr>
@@ -513,7 +513,7 @@ function get_class_table($dbconn, $class,$write_day) {
                         </tr>                        
                         </tbody>
                     </table>
-                </a>
+                </button>                
             </td>
         </tr>
     </div>    
@@ -523,7 +523,7 @@ function get_class_table($dbconn, $class,$write_day) {
 
 function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {    
         ?>
-        <div class="card" id="other" >
+        <div class="card" id="other">
         <?php             
             $date_start = explode(" ",$event['time_start']);
             $date_end = explode(" ",$event['time_end']);
@@ -536,19 +536,18 @@ function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {
                     echo "<div class='day'> $date </div>";                       
                     $type_of_day1 = type_of_day(new DateTime($date_y_M_D));                    
                     if ($type_of_day1 == "celebration"){
-                        echo "<div class='type_of_day'>celebration</div>";                    
+                        echo "<div class='type_of_day' style='font-size:28px'>celebration</div>";
                     } else if ($type_of_day1 == "holidays"){
-                        echo "<div class='type_of_day'>holidays</div>";
+                        echo "<div class='type_of_day' style='font-size:28px'>holidays</div>";
                     } else if ($type_of_day1 == "weekend"){
-                        echo "<div class='type_of_day'>weekend</div>";
+                        echo "<div class='type_of_day' style='font-size:28px'>weekend</div>";
                     } else if ($type_of_day1 == "exams"){
-                        echo "<div class='type_of_day'>exam time</div>";
+                        echo "<div class='type_of_day' style='font-size:28px'>exam time</div>";
                     }                 
                 }   
                 ?></td>
                 <td>
-                    <a type="button" class="btn btn-warning btn-lg btn-block w-100"  >
-
+                    <a type="button" class="btn btn-warning btn-lg btn-block w-100" style="background-color: #FDF1DB;">
                         <table class=" w-100">
                             <tbody>
                             <tr>
