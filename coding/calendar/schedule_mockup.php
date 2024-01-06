@@ -97,7 +97,6 @@ if (isset($_SESSION['user'])) {
     if ($sum_events>0) {
        echo "<div class='remove_div'>";
        echo "<input class ='remove_butt' name='remove' type='submit', value='Remove selected'>";
-       echo "<p> <a href='../courses/roomplan.php'> Room plan </a> </p>";
        echo "</div>";
 
     } else {

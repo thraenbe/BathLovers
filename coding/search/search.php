@@ -93,7 +93,7 @@ get_header('Search');
                 <div class="recomend"><?php echo "Course: ".$recom_course['name_en']."  on ".$recom_course['time_start']."-".explode(" ",$recom_course['time_end'])[1]?></div>
                 <?php                
             }
-            echo "<div class='recomend' style='font-weight:bold'>Courses held in dates 18.9.2023-14.12.2023 and during 19.2.2023-16.5.2023</div>";
+            echo "<div class='recomend' style='font-weight:bold'>Courses held in dates 18.9.2023-14.12.2023 and during 19.2.2023-16.5.2024</div>";
             if (isset($_POST['Search'])) {
                 $searchtext = $_POST['course'];
                 $_SESSION['searchtext']=$searchtext;
@@ -132,9 +132,9 @@ get_header('Search');
                         }
                     }
                     if (hasTimeConflict_Class_Class($new_event, $classes)) {
-                        echo "<p id='notification' class = 'bad_notify'> <strong>× Time conflict detected with classes</strong> </p>";
+                        echo "<p id='notification' class = 'bad_notify'> <strong>× Time conflict detected with other classes. The class was not added.</strong> </p>";
                     } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events_all))){
-                        echo "<p id='notification' class = 'bad_notify button'> <strong>× Time conflict detected with nonschool event</strong> </p>";
+                        echo "<p id='notification' class = 'bad_notify button'> <strong>× Time conflict detected with nonschool event. Class was not added.</strong> </p>";
                     } else {
                         add_course($dbconn, $i, $user_id);
                         $n_class_name = get_Subject($dbconn,$i)['name'];
