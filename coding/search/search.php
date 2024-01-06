@@ -114,7 +114,7 @@ get_header('Search');
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
                         ?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input style="background-color: #8698E9;margin-top:10px;" type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
             <?php                                        
                 }

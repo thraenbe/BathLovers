@@ -17,7 +17,7 @@
 }
 .remove_butt{    
     border-radius: 5px;
-    background-color: #8698E9;
+    background-color: #4D6EFF;
     font-size: larger;
     font-weight: bolder;
     margin-top: 2%;
