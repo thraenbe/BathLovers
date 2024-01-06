@@ -99,5 +99,3 @@ include('../templates/footer.php');
 </section>
 </body>
 </html>
-
-

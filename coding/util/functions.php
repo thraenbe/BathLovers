@@ -479,7 +479,7 @@ function generateDays($start_date, $end_date) {
 // weekly view
 function get_class_table($dbconn, $class,$write_day) {                
     ?>
-    <div class="card">
+    <div class="card" id="course">
     <?php 
         $date_start = explode(" ",$class['time_start']);
         $date_end = explode(" ",$class['time_end']);
@@ -523,7 +523,7 @@ function get_class_table($dbconn, $class,$write_day) {
 
 function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {    
         ?>
-        <div class="card" >
+        <div class="card" id="other" >
         <?php             
             $date_start = explode(" ",$event['time_start']);
             $date_end = explode(" ",$event['time_end']);

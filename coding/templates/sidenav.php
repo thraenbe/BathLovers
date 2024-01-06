@@ -38,6 +38,17 @@
 input{
     border-radius: 10px;
 }
+.logoutbtn{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width:60%;
+    height: 8%;
+    background-color: #f8f9fa    ;
+    font-weight: bold;
+}
+.logoutbtn:hover {
+    background-color: grey;
+}
 </style>
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

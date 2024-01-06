@@ -29,6 +29,9 @@
     font-size: larger;
     font-weight: bold;
 }
+#date{
+    border: none;
+}
 </style>
 </head>
 <?php
@@ -50,15 +53,20 @@ if (isset($_SESSION['user'])) {
     // chronologically sorted on date interval you type    
     $all_events = sort_all_events($classes,$non_school_events); 
     ?>
-    <form method="post">
+    <form id="daily" method="post">
         <input type="hidden" name="actual_day" value="<?php echo $actual_day; ?>">    
         <div class="day_switch">
         <input type="submit" name="left_click" value="<">
         <?php
         $date_array = explode("-",$date_range[$actual_day]);        
-        echo "$day_in_week $date_array[2].$date_array[1].$date_array[0]"; ?>
-        <input type="submit" name="right_click" value=">">
-        </div>
+        echo "$day_in_week ";?>
+        <!-- $date_array[2].$date_array[1].$date_array[0] -->
+        <input type="date" id='date' name="date" value="<?php echo $date_range[$actual_day]?>" oninput="daily.submit()">        
+        <noscript>
+        <input type="submit" value="Submit">
+        </noscript>
+        <input type="submit" name="right_click" value=">">        
+        </div>        
         <?php
         $type_of_day1 = type_of_day(new DateTime($date_range[$actual_day]));    
         if ($type_of_day1 == "celebration"){
@@ -97,7 +105,7 @@ if (isset($_SESSION['user'])) {
         ?>
     </form>    
     <?php
-    // Inside the form handling block
+    // Inside the form handling block    
     if(isset($_POST["remove"] )) {
         if (isset($_POST['class'])){
             foreach ($_POST['class'] as $class) {
@@ -130,6 +138,17 @@ if (isset($_SESSION['user'])) {
         }    
         $_SESSION['actual_day'] = $actual_day;
         echo "<meta http-equiv='refresh' content='0'>";
+    } else if (isset($_POST['date'])){
+        $find_index = 0;
+        foreach($date_range as $day){
+            if ($day == $_POST['date']){
+                $actual_day = $find_index;
+                $_SESSION['actual_day']=$actual_day;
+                echo "<meta http-equiv='refresh' content='0'>";
+                break;
+            }
+            $find_index++; 
+        }
     }
 } else {
     echo "<div class='logo'><img src='../images/ComeniusUniversity.png' alt='University'>";

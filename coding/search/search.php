@@ -10,23 +10,26 @@ margin-top: 10px;
 .searchtool{
     margin: 10px;
 }
-.center{
-    border: 3px solid #ccc;
-    border-radius: 20px;    
-    margin: auto;        
-    padding: 10px; 
-    background-color: #00BFFF;   
+.center {
+    background-color: #DAF6F4;
+     align-items: center; 
+     height:38%; 
+     width: 95%;} 
+.title{
+    font-size: 28px;
+    font-weight: bolder;
+    } 
+.day{
+    text-align: middle;
+    font-size: 20px;
+} 
+.add-btn{
+    align-items: center;
+    font-weight: bold;
 }
-.add-btn{        
-    font-weight: bolt;
-    border: 3px solid black;
-    border-radius: 10px;
-    background-color: #f8f9fa;    
-    margin: 10px;
-}
-.input {
+/* .input {
     width: 30%;    
-}
+} */
 .bad_notify, .good_notify {
     position: fixed;
     top: 38%;
@@ -82,7 +85,7 @@ get_header('Search');
             <div class="searchtool">
             <input id="course" name="course" class="input" placeholder="Search...">
             <input id="Search" type="submit" name="Search" value="Search">
-            </div>                        
+            </div>                                    
             <h3>Recomended_subjects</h3>
             <?php
             foreach (get_recomended_subjects($dbconn,$user_id) as $recom_course){
@@ -90,6 +93,7 @@ get_header('Search');
                 <div class="recomend"><?php echo "Course: ".$recom_course['name_en']."  on ".$recom_course['time_start']."-".explode(" ",$recom_course['time_end'])[1]?></div>
                 <?php                
             }
+            echo "<div class='recomend' style='font-weight:bold'>Courses held in dates 18.9.2023-14.12.2023 and during 19.2.2023-16.5.2023</div>";
             if (isset($_POST['Search'])) {
                 $searchtext = $_POST['course'];
                 $_SESSION['searchtext']=$searchtext;
@@ -110,7 +114,7 @@ get_header('Search');
                         <?php                         
                         $someCondition = course_added($dbconn,$row['id'],$user_id);
                         ?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER CLASS" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
             <?php                                        
                 }
@@ -146,7 +150,7 @@ get_header('Search');
                         <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
                         <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
                         <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="REGISTER CLASS" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
                     </div> <br>
                     <?php
                     }
@@ -172,9 +176,10 @@ include('../templates/footer.php');
     document.getElementById('course').focus();
     // Show the notification
     notification.style.display = 'block';
+
     // Hide the notification after 10 seconds
     setTimeout(function() {
       notification.style.display = 'none';
-    }, 3000);
+    }, 5000);
   });
 </script>

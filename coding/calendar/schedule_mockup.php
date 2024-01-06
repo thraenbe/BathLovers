@@ -1,4 +1,11 @@
 <head><style>
+/* .btn-info, .btn-lg , .btn-block{
+    background-color: #CFECFF; 
+    border:none;} 
+.w-100{
+    background-color: #CFECFF; 
+    border:none;
+} */
 .week_switch{
     text-align: center;
     padding-bottom: 10px;
@@ -10,7 +17,7 @@
 }
 .remove_butt{    
     border-radius: 5px;
-    background-color: greenyellow;
+    background-color: #8698E9;
     font-size: larger;
     font-weight: bolder;
     margin-top: 2%;

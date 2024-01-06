@@ -20,7 +20,8 @@ function get_header($title) {
 
     .dropdown-content {
     display: none;
-    position: relative;
+    position: absolute;
+    right: 0;
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -32,12 +33,11 @@ function get_header($title) {
     padding: 10px 10px;
     text-decoration: none;
     display: block;
-    white-space: normal; 
     }
 
     .dropdown-content a:hover {background-color: #ddd;}
 
-    .dropdown:hover .dropdown-content {display:block;}
+    .dropdown:hover .dropdown-content {display: block;}
 
 </style>
 </head>
@@ -51,13 +51,13 @@ function get_header($title) {
             <img src="../icons/icons/navbar/languege.png" alt="Logo" class="d-inline-block align-text-top">
         </a>          
         <div>
-        <div class="dropdown">
+            <div class="dropdown">
                 <button class="btn btn-light navbar-brand" >
-                    <img src="../icons/icons/tabbar/new.png" alt="Logo" class="d-inline-block align-text-top">
-                    <div class="dropdown-content">
-                        <a href="../search/search.php"> Register for courses</a>
-                        <a href="../calendar/add_to_schedule.php">Add activity</a>
-                    </div>
+                <img src="../icons/icons/tabbar/new.png" alt="Logo" class="d-inline-block align-text-top">
+                <div class="dropdown-content">
+                    <a href="../search/search.php">Search classes</a>
+                    <a href="../calendar/add_to_schedule.php">Add activity</a>
+                </div>
             </div>
             <!-- <a class="btn btn-light navbar-brand" href="../search/search.php">
                 <img src="../icons/icons/tabbar/search.png" alt="Logo" class="d-inline-block align-text-top">
