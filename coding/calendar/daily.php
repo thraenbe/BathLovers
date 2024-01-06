@@ -56,9 +56,9 @@ if (isset($_SESSION['user'])) {
         $date_array = explode("-",$date_range[$actual_day]);        
         echo "$day_in_week ";?>
         <!-- $date_array[2].$date_array[1].$date_array[0] -->
-        <input type="date" id='date' name="date" value="<?php echo $date_range[$actual_day]?>" oninput="daily.submit()">        
+        <input type="date" id="date" name="date" value="<?php echo $date_range[$actual_day]; ?>" onchange="document.getElementById('daily').submit()">
         <noscript>
-        <input type="submit" value="Submit">
+            <input type="submit" value="Submit">
         </noscript>
         <input type="submit" name="right_click" value=">">        
         </div>        
