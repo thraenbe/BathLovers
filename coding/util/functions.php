@@ -16,7 +16,8 @@
             text-align: center;
             font-size: larger;
             font-weight: bold;
-        }      
+        }
+        
     </style>
 </head>
 <?php
@@ -571,5 +572,45 @@ function get_event_table($dbconn,$event,$write_day,$date_y_M_D) {
             </tr>
         </div>    
     <?php
+}
+function write_courses($dbconn,$user_id){
+    $rows = search_subjects($dbconn,$_SESSION['searchtext']);                    
+    foreach ($rows as $row) {        
+        $new_event = get_Subject($dbconn,$row['id']);
+        $classes = get_registred_classes($dbconn,$user_id);
+        $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');
+        $non_school_events_all = [];
+        foreach ($non_school_events as $nonsch_event){
+            if (check_free_days($nonsch_event['time_start'])){
+                $non_school_events_all[] = $nonsch_event;
+            }
+        }        
+    ?>
+        <div class="center">
+            <div class="title"><?php echo $row['name_en'] ?></div>
+            <?php
+            $start=explode(" ",$row['time_start']);
+            $end=explode(" ",$row['time_end']);                        
+            ?>
+            <div class="day1"><?php echo $start[0] ?></div>
+            <div class="start">Start: <?php echo $start[1] ?></div>
+            <div class="end">End: <?php echo $end[1] ?></div>
+            <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
+            <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
+            <?php                                     
+            $someCondition = course_added($dbconn,$row['id'],$user_id);
+            $butt_value = "REGISTER";
+            if ($someCondition == 0 and hasTimeConflict_Class_Class($new_event, $classes)) {
+                echo "<div class='conflict'>X This course has time conflict with another course</div>";
+                $butt_value="REGISTER DESPITE CONFLICT";
+            } else if ($someCondition == 0 and hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events_all))){
+                echo "<div class='conflict'>X This course has time conflict with another activities</div>";
+                $butt_value="REGISTER DESPITE CONFLICT";
+            }
+            ?>
+            <input style="background-color: #8698E9;margin-top:10px;" type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="<?php echo $butt_value;?>" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
+        </div> <br>
+    <?php
+    }
 }
 ?>

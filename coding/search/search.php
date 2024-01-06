@@ -12,16 +12,17 @@ margin-top: 10px;
 }
 .center {
     background-color: #DAF6F4;
-     align-items: center; 
-     height:38%; 
-     width: 95%;} 
+    align-items: center; 
+    height:41%; 
+    width: 95%;} 
 .title{
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bolder;
     } 
-.day{
+.day1{
     text-align: middle;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bolder;
 } 
 .add-btn{
     align-items: center;
@@ -54,14 +55,20 @@ margin-top: 10px;
     padding-bottom: 10px;  
 }
 .course_link{
-    font-size: 16px;
-    color: red;
+    font-size: 20px;
+    color: green;
     font-weight: bold;
 }
 .course_link:hover{
     font-size: 16px;
     color: blue;
     font-weight: bold;
+}
+.conflict{            
+    font-weight: bolder;
+    font-size: 20;    
+    border: none;      
+    color: red;      
 }
 </style>
 </head>
@@ -88,72 +95,30 @@ get_header('Search');
             </div>                                    
             <h3>Recomended_subjects</h3>
             <?php
+            // odporucane predmety
             foreach (get_recomended_subjects($dbconn,$user_id) as $recom_course){
                 ?>
                 <div class="recomend"><?php echo "Course: ".$recom_course['name_en']."  on ".$recom_course['time_start']."-".explode(" ",$recom_course['time_end'])[1]?></div>
                 <?php                
             }
-            echo "<div class='recomend' style='font-weight:bold'>Courses held in dates 18.9.2023-14.12.2023 and during 19.2.2023-16.5.2024</div>";
+            // popis semestra
+            echo "<div class='recomend' style='font-weight:bold'>Courses held in dates 18.9.2023-14.12.2023 and during 19.2.2024-16.5.2024</div>";
+            // search            
             if (isset($_POST['Search'])) {
                 $searchtext = $_POST['course'];
                 $_SESSION['searchtext']=$searchtext;
                 $rows = search_subjects($dbconn,$searchtext);                
-                foreach ($rows as $row) {
-            ?>                    
-                    <div class="center">
-                        <div class="title"><?php echo $row['name_en'] ?></div>
-                        <?php
-                        $start=explode(" ",$row['time_start']);
-                        $end=explode(" ",$row['time_end']);                        
-                        ?>
-                        <div class="day"><?php echo $start[0] ?></div>
-                        <div class="start">Start: <?php echo $start[1] ?></div>
-                        <div class="end">End: <?php echo $end[1] ?></div>
-                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
-                        <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
-                        <?php                         
-                        $someCondition = course_added($dbconn,$row['id'],$user_id);
-                        ?>
-                        <input style="background-color: #8698E9;margin-top:10px;" type="submit" name="class<?php echo $row['id']; ?>" class="add-btn" value="REGISTER" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
-                    </div> <br>
-            <?php                                        
-                }
+                write_courses($dbconn,$user_id);
+                
             }
             for ($i=0;$i<30;$i++){
-                $buttonName = 'class' . $i;                        
-                if (isset($_POST[$buttonName])) {                    
-                    $new_event = get_Subject($dbconn,$i);
-                    $classes = get_registred_classes($dbconn,$user_id);
-                    $non_school_events = get_nonschool_events($dbconn,$user_id,'2023-05-01','2024-09-24');
-                    $non_school_events_all = [];
-                    foreach ($non_school_events as $nonsch_event){
-                        if (check_free_days($nonsch_event['time_start'])){
-                            $non_school_events_all[] = $nonsch_event;
-                        }
-                    }
-                    if (hasTimeConflict_Class_Class($new_event, $classes)) {
-                        echo "<p id='notification' class = 'bad_notify'> <strong>× Time conflict detected with other classes. The class was not added.</strong> </p>";
-                    } else if (hasTimeConflict_Class_Class($new_event,convertToClassFormat($non_school_events_all))){
-                        echo "<p id='notification' class = 'bad_notify button'> <strong>× Time conflict detected with nonschool event. Class was not added.</strong> </p>";
-                    } else {
-                        add_course($dbconn, $i, $user_id);
-                        $n_class_name = get_Subject($dbconn,$i)['name'];
-                        echo "<p id='notification' class = 'good_notify'> <strong>✓ Class $n_class_name suscessfullly added to schedule </strong> </p>";
-                    }                    
-                    $rows = search_subjects($dbconn,$_SESSION['searchtext']);
-                    foreach ($rows as $row) {
-                    ?>
-                    <div class="center">
-                        <div class="title"><?php echo $row['name_en'] ?></div>
-                        <div class="start"><?php echo $row['time_start'] ?></div>
-                        <div class="end"><?php echo $row['time_end'] ?></div>
-                        <div class="teacher">Teacher: <?php echo $row['teacher'] ?></div>
-                        <div class="course_site"><a class="course_link" href="<?php echo $row['information_plan'];?>" target="_blank">course site</a></div>
-                        <?php $someCondition = course_added($dbconn,$row['id'],$user_id);?>
-                        <input type="submit" name="class<?php echo $row['id']; ?>" class="add-btn"  value="ADD" data-id="<?php echo $row['id']; ?>" <?php echo $someCondition ? 'disabled' : ''; ?>>
-                    </div> <br>
-                    <?php
-                    }
+                $buttonName = 'class' . $i;
+                // nasiel som button                        
+                if (isset($_POST[$buttonName])) {                                                            
+                    add_course($dbconn, $i, $user_id);
+                    $n_class_name = get_Subject($dbconn,$i)['name'];
+                    echo "<p id='notification' class = 'good_notify'> <strong>✓ Class $n_class_name suscessfullly added to schedule </strong> </p>";                                                            
+                    write_courses($dbconn,$user_id);
                     break;
                 }
             }
